@@ -208,6 +208,8 @@ impl std::fmt::Display for WifiError {
 
 fn wpa_cli(iface: &str, args: &[&str]) -> Result<String, WifiError> {
     let out = Command::new("wpa_cli")
+        .arg("-p")
+        .arg("/run/wpa_supplicant/control")
         .arg("-i")
         .arg(iface)
         .args(args)

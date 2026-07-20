@@ -68,7 +68,7 @@ class AppLocalizationsTa extends AppLocalizations {
       'உங்கள் அசைவுகளால் பூனையை விழித்திருக்க வையுங்கள்';
 
   @override
-  String get taglineDashlands =>
+  String get taglineYogaFlow =>
       'ஓடுங்கள், தாவுங்கள், நிலங்களில் பந்தயம் நடத்துங்கள்';
 
   @override
@@ -149,7 +149,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get presCatNap => '5 நிமிடம் — சமநிலை மற்றும் எட்டுதல்';
 
   @override
-  String get presDashlands => '10 நிமிடம் — நின்ற இடத்தில் நடத்தல்';
+  String get presYogaFlow => '10 நிமிடம் — நின்ற இடத்தில் நடத்தல்';
 
   @override
   String get sugg1 => 'அருமை! தொடர்ந்து இரண்டு நாட்கள்.';

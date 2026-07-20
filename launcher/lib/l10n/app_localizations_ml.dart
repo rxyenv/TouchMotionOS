@@ -65,7 +65,7 @@ class AppLocalizationsMl extends AppLocalizations {
   String get taglineCatNap => 'നിങ്ങളുടെ ചലനങ്ങളാൽ പൂച്ചയെ ഉണർത്തി നിർത്തൂ';
 
   @override
-  String get taglineDashlands => 'ഓടൂ, ചാടൂ, നാടുകളിലൂടെ മത്സരിക്കൂ';
+  String get taglineYogaFlow => 'ഓടൂ, ചാടൂ, നാടുകളിലൂടെ മത്സരിക്കൂ';
 
   @override
   String get whoIsPlaying => 'ഇന്ന് ആരാണ് കളിക്കുന്നത്?';
@@ -145,7 +145,7 @@ class AppLocalizationsMl extends AppLocalizations {
   String get presCatNap => '5 മിനിറ്റ് — ബാലൻസും എത്തിപ്പിടിക്കലും';
 
   @override
-  String get presDashlands => '10 മിനിറ്റ് — നിന്നിടത്ത് ചുവടുവയ്പ്';
+  String get presYogaFlow => '10 മിനിറ്റ് — നിന്നിടത്ത് ചുവടുവയ്പ്';
 
   @override
   String get sugg1 => 'കൊള്ളാം! തുടർച്ചയായി രണ്ടു ദിവസം.';

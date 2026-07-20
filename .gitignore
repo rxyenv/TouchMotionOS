@@ -26,3 +26,8 @@ launcher/*.iml
 .direnv/
 *.qcow2
 games/dashlands/game/
+Server/.venv/
+Server/build/
+Server/dist/
+Server/pose_debug.log
+Server/*.spec

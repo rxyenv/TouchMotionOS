@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import '../languages.dart';
 import '../session.dart';
+import '../widgets/focusable_tap.dart';
 import '../widgets/power_button.dart';
 import 'patient_profile_screen.dart';
 
@@ -76,7 +77,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
                     runSpacing: sy(32),
                     children: [
                       for (final lang in appLanguages)
-                        GestureDetector(
+                        FocusableTap(
+                          autofocus: lang.code == _selected,
+                          borderRadius: BorderRadius.circular(sy(24)),
                           onTap: () => setState(
                             () => Session.locale.value = Locale(lang.code),
                           ),
@@ -122,7 +125,8 @@ class _LanguageScreenState extends State<LanguageScreen> {
                     ],
                   ),
                   SizedBox(height: sy(72)),
-                  GestureDetector(
+                  FocusableTap(
+                    borderRadius: BorderRadius.circular(sy(40)),
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => const PatientProfileScreen(),

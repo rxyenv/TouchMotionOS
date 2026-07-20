@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
 import '../session.dart';
+import '../widgets/focusable_tap.dart';
 import '../widgets/power_button.dart';
 import 'home_screen.dart';
 import 'physio_screen.dart';
@@ -33,7 +34,7 @@ class PatientProfileScreen extends StatelessWidget {
   static List<(String, String)> _prescription(AppLocalizations l10n) => [
     ('Sky Hopper', l10n.presSkyHopper),
     ('Cat Nap Chase', l10n.presCatNap),
-    ('Dashlands', l10n.presDashlands),
+    ('YogaFlow', l10n.presYogaFlow),
   ];
 
   static List<String> _suggestions(AppLocalizations l10n) => [
@@ -278,7 +279,8 @@ class PatientProfileScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: sy(32)),
-                GestureDetector(
+                FocusableTap(
+                  borderRadius: BorderRadius.circular(sy(24)),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => const PhysioScreen()),
                   ),
@@ -321,7 +323,9 @@ class PatientProfileScreen extends StatelessWidget {
             left: sx(96),
             right: sx(96),
             child: Center(
-              child: GestureDetector(
+              child: FocusableTap(
+                autofocus: true,
+                borderRadius: BorderRadius.circular(sy(44)),
                 onTap: () => Navigator.of(
                   context,
                 ).push(MaterialPageRoute(builder: (_) => const HomeScreen())),

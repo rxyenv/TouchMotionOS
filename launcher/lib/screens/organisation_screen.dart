@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
 import '../session.dart';
+import '../widgets/focusable_tap.dart';
 import '../widgets/power_button.dart';
 import 'language_screen.dart';
 
@@ -206,8 +207,9 @@ class _OrganisationScreenState extends State<OrganisationScreen> {
 
   Widget _keypad(double Function(double) sx, double Function(double) sy) {
     Widget key(String label, {VoidCallback? onTap}) {
-      return GestureDetector(
+      return FocusableTap(
         onTap: onTap ?? () => _pressDigit(label),
+        borderRadius: BorderRadius.circular(sy(16)),
         child: Container(
           width: sx(140),
           height: sy(88),

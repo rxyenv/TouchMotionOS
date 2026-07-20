@@ -1,6 +1,8 @@
 { lib, ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
+
   # Simulated wifi radios (wlan0/wlan1) — QEMU has no wifi NIC, this lets
   # the settings screen's wifi detection be exercised in the VM.
   boot.kernelModules = [ "mac80211_hwsim" ];
@@ -11,6 +13,11 @@
   # qemu-vm.nix disables wpa_supplicant with mkVMOverride (priority 10);
   # out-prioritize it — the whole point of this VM is testing wifi.
   virtualisation.vmVariant.networking.wireless.enable = lib.mkOverride 9 true;
+
+  services.tomoro-server = {
+    enable = true;
+    dataDir = "/var/lib/tomoro-data";
+  };
 
   services.hostapd = {
     enable = true;
@@ -42,6 +49,7 @@
   };
 
   imports = [
+    ../../modules/services/python-server.nix
     ../../modules/system/boot.nix
     ../../modules/system/plymouth-theme.nix
     ../../modules/system/autologin.nix

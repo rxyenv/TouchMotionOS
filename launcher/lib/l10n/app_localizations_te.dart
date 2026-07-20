@@ -65,7 +65,7 @@ class AppLocalizationsTe extends AppLocalizations {
   String get taglineCatNap => 'మీ కదలికలతో పిల్లిని మేల్కొని ఉంచండి';
 
   @override
-  String get taglineDashlands =>
+  String get taglineYogaFlow =>
       'పరుగెత్తండి, దూకండి, భూముల మీదుగా రేసు వేయండి';
 
   @override
@@ -145,7 +145,7 @@ class AppLocalizationsTe extends AppLocalizations {
   String get presCatNap => '5 నిమిషాలు — సమతుల్యత మరియు అందుకోవడం';
 
   @override
-  String get presDashlands => '10 నిమిషాలు — అక్కడే అడుగులు వేయడం';
+  String get presYogaFlow => '10 నిమిషాలు — అక్కడే అడుగులు వేయడం';
 
   @override
   String get sugg1 => 'అద్భుతం! వరుసగా రెండు రోజులు.';

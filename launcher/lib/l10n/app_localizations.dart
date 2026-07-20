@@ -214,11 +214,11 @@ abstract class AppLocalizations {
   /// **'Keep the cat awake with your best moves'**
   String get taglineCatNap;
 
-  /// No description provided for @taglineDashlands.
+  /// No description provided for @taglineYogaFlow.
   ///
   /// In en, this message translates to:
   /// **'Dash, jump, and race across the lands'**
-  String get taglineDashlands;
+  String get taglineYogaFlow;
 
   /// No description provided for @whoIsPlaying.
   ///
@@ -358,11 +358,11 @@ abstract class AppLocalizations {
   /// **'5 minutes — balance and reach'**
   String get presCatNap;
 
-  /// No description provided for @presDashlands.
+  /// No description provided for @presYogaFlow.
   ///
   /// In en, this message translates to:
   /// **'10 minutes — step in place'**
-  String get presDashlands;
+  String get presYogaFlow;
 
   /// No description provided for @sugg1.
   ///

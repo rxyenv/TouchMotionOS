@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'gamepad_navigator.dart';
 import 'l10n/app_localizations.dart';
 import 'onboarding_state.dart';
 import 'session.dart';
@@ -21,7 +22,12 @@ import 'screens/slide14.dart';
 import 'screens/slide15.dart';
 import 'screens/slide16.dart';
 
+/// Root navigator handle: GamepadNavigator pops routes through it.
+final navigatorKey = GlobalKey<NavigatorState>();
+
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  GamepadNavigator.start(navigatorKey);
   runApp(const MyApp());
 }
 
@@ -104,6 +110,7 @@ class MyApp extends StatelessWidget {
     return ValueListenableBuilder<Locale>(
       valueListenable: Session.locale,
       builder: (context, locale, _) => MaterialApp(
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         locale: locale,
         localizationsDelegates: AppLocalizations.localizationsDelegates,

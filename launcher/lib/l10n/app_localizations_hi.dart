@@ -65,7 +65,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get taglineCatNap => 'अपनी चालों से बिल्ली को जगाए रखें';
 
   @override
-  String get taglineDashlands => 'दौड़ें, कूदें और मैदानों में रेस लगाएँ';
+  String get taglineYogaFlow => 'दौड़ें, कूदें और मैदानों में रेस लगाएँ';
 
   @override
   String get whoIsPlaying => 'आज कौन खेल रहा है?';
@@ -144,7 +144,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get presCatNap => '5 मिनट — संतुलन और पहुँच';
 
   @override
-  String get presDashlands => '10 मिनट — जगह पर कदम';
+  String get presYogaFlow => '10 मिनट — जगह पर कदम';
 
   @override
   String get sugg1 => 'शानदार! लगातार दो दिन।';

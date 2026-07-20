@@ -33,6 +33,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.10
+  gamepads: ^0.1.10+5
   intl: any
 
 dev_dependencies:
@@ -75,7 +76,7 @@ flutter:
     - assets/slide14/
     - assets/slide15/
     - assets/slide16/
-    - assets/dashlands/
+    - assets/yogaflow/
 
   # Noto variable fonts: Latin base plus one family per supported Indic
   # script. Referenced from ThemeData as fontFamily + fontFamilyFallback.

@@ -1,0 +1,1066 @@
+[13:52:09] Starting Pose Service (DEBUG MODE)
+[13:52:12] >>> /start called
+[13:52:12] Initializing MediaPipe Pose
+[13:52:12] Opening camera index 0
+[13:52:13] Camera opened: True
+[13:52:13] Tracking loop started
+[17:07:23] Starting Pose Service (DEBUG MODE)
+[17:07:26] >>> /start called
+[17:07:26] Initializing MediaPipe Pose
+[17:07:26] Opening camera index 0
+[17:07:26] Camera opened: True
+[17:07:26] Tracking loop started
+[17:08:03] Starting Pose Service (DEBUG MODE)
+[17:08:06] >>> /start called
+[17:08:06] Initializing MediaPipe Pose
+[17:08:06] Opening camera index 0
+[17:08:06] Camera opened: True
+[17:08:06] Tracking loop started
+[17:09:00] Starting Pose Service (DEBUG MODE)
+[17:09:02] >>> /start called
+[17:09:02] Initializing MediaPipe Pose
+[17:09:02] Opening camera index 0
+[17:09:02] Camera opened: True
+[17:09:02] Tracking loop started
+[17:10:01] Starting Pose Service (DEBUG MODE)
+[17:10:03] >>> /start called
+[17:10:03] Initializing MediaPipe Pose
+[17:10:03] Opening camera index 0
+[17:10:03] Camera opened: True
+[17:10:03] Tracking loop started
+[17:36:34] Starting Pose Service (DEBUG MODE)
+[17:36:36] >>> /start called
+[17:36:36] Initializing MediaPipe Pose
+[17:36:36] Opening camera index 0
+[17:36:37] Camera opened: True
+[17:36:37] Tracking loop started
+[10:56:46] Starting Pose Service (DEBUG MODE)
+[10:56:49] >>> /start called
+[10:56:49] Initializing MediaPipe Pose
+[10:56:49] Opening camera index 0
+[10:56:50] Camera opened: True
+[10:56:50] Tracking loop started
+[11:00:26] Starting Pose Service (DEBUG MODE)
+[11:00:29] >>> /start called
+[11:00:29] Initializing MediaPipe Pose
+[11:00:29] Opening camera index 0
+[11:00:30] Camera opened: True
+[11:00:30] Tracking loop started
+[11:03:02] Starting Pose Service (DEBUG MODE)
+[11:03:05] >>> /start called
+[11:03:05] Initializing MediaPipe Pose
+[11:03:05] Opening camera index 0
+[11:03:05] Camera opened: True
+[11:03:05] Tracking loop started
+[11:08:06] Starting Pose Service (DEBUG MODE)
+[11:08:08] >>> /start called
+[11:08:08] Initializing MediaPipe Pose
+[11:08:08] Opening camera index 0
+[11:08:09] Camera opened: True
+[11:08:09] Tracking loop started
+[11:11:37] Starting Pose Service (DEBUG MODE)
+[11:11:40] >>> /start called
+[11:11:40] Initializing MediaPipe Pose
+[11:11:40] Opening camera index 0
+[11:11:41] Camera opened: True
+[11:11:41] Tracking loop started
+[11:16:55] Starting Pose Service (DEBUG MODE)
+[11:16:58] >>> /start called
+[11:16:58] Initializing MediaPipe Pose
+[11:16:58] Opening camera index 0
+[11:16:58] Camera opened: True
+[11:16:58] Tracking loop started
+[11:19:14] Starting Pose Service (DEBUG MODE)
+[11:19:17] >>> /start called
+[11:19:17] Initializing MediaPipe Pose
+[11:19:17] Opening camera index 0
+[11:19:18] Camera opened: True
+[11:19:18] Tracking loop started
+[11:29:04] Starting Pose Service (DEBUG MODE)
+[11:29:07] >>> /start called
+[11:29:07] Initializing MediaPipe Pose
+[11:29:07] Opening camera index 0
+[11:29:07] Camera opened: True
+[11:29:07] Tracking loop started
+[11:42:37] Starting Pose Service (DEBUG MODE)
+[11:42:40] >>> /start called
+[11:42:40] Initializing MediaPipe Pose
+[11:42:40] Opening camera index 0
+[11:42:40] Camera opened: True
+[11:42:40] Tracking loop started
+[11:46:57] Starting Pose Service (DEBUG MODE)
+[11:47:00] >>> /start called
+[11:47:00] Initializing MediaPipe Pose
+[11:47:00] Opening camera index 0
+[11:47:00] Camera opened: True
+[11:47:00] Tracking loop started
+[11:48:08] Starting Pose Service (DEBUG MODE)
+[11:48:11] >>> /start called
+[11:48:11] Initializing MediaPipe Pose
+[11:48:11] Opening camera index 0
+[11:48:11] Camera opened: True
+[11:48:11] Tracking loop started
+[11:49:09] Starting Pose Service (DEBUG MODE)
+[11:49:11] >>> /start called
+[11:49:11] Initializing MediaPipe Pose
+[11:49:11] Opening camera index 0
+[11:49:12] Camera opened: True
+[11:49:12] Tracking loop started
+[11:50:21] Starting Pose Service (DEBUG MODE)
+[11:50:23] >>> /start called
+[11:50:23] Initializing MediaPipe Pose
+[11:50:23] Opening camera index 0
+[11:50:24] Camera opened: True
+[11:50:24] Tracking loop started
+[11:50:44] Starting Pose Service (DEBUG MODE)
+[11:50:47] >>> /start called
+[11:50:47] Initializing MediaPipe Pose
+[11:50:47] Opening camera index 0
+[11:50:47] Camera opened: True
+[11:50:47] Tracking loop started
+[12:27:20] Starting Pose Service (DEBUG MODE)
+[12:27:23] >>> /start called
+[12:27:23] Initializing MediaPipe Pose
+[12:27:23] Opening camera index 0
+[12:27:23] Camera opened: True
+[12:27:23] Tracking loop started
+[12:28:20] Starting Pose Service (DEBUG MODE)
+[12:28:23] >>> /start called
+[12:28:23] Initializing MediaPipe Pose
+[12:28:23] Opening camera index 0
+[12:28:23] Camera opened: True
+[12:28:23] Tracking loop started
+[12:29:58] Starting Pose Service (DEBUG MODE)
+[12:30:00] >>> /start called
+[12:30:00] Initializing MediaPipe Pose
+[12:30:00] Opening camera index 0
+[12:30:01] Camera opened: True
+[12:30:01] Tracking loop started
+[12:31:05] Starting Pose Service (DEBUG MODE)
+[12:31:08] >>> /start called
+[12:31:08] Initializing MediaPipe Pose
+[12:31:08] Opening camera index 0
+[12:31:08] Camera opened: True
+[12:31:08] Tracking loop started
+[12:32:16] Starting Pose Service (DEBUG MODE)
+[12:32:19] >>> /start called
+[12:32:19] Initializing MediaPipe Pose
+[12:32:19] Opening camera index 0
+[12:32:20] Camera opened: True
+[12:32:20] Tracking loop started
+[12:34:10] Starting Pose Service (DEBUG MODE)
+[12:34:12] >>> /start called
+[12:34:12] Initializing MediaPipe Pose
+[12:34:12] Opening camera index 0
+[12:34:13] Camera opened: True
+[12:34:13] Tracking loop started
+[12:37:09] Starting Pose Service (DEBUG MODE)
+[12:37:12] >>> /start called
+[12:37:12] Initializing MediaPipe Pose
+[12:37:12] Opening camera index 0
+[12:37:13] Camera opened: True
+[12:37:13] Tracking loop started
+[12:37:30] Starting Pose Service (DEBUG MODE)
+[12:37:32] >>> /start called
+[12:37:32] Initializing MediaPipe Pose
+[12:37:32] Opening camera index 0
+[12:37:33] Camera opened: True
+[12:37:33] Tracking loop started
+[12:38:46] Starting Pose Service (DEBUG MODE)
+[12:38:49] >>> /start called
+[12:38:49] Initializing MediaPipe Pose
+[12:38:49] Opening camera index 0
+[12:38:50] Camera opened: True
+[12:38:50] Tracking loop started
+[12:39:53] Starting Pose Service (DEBUG MODE)
+[12:39:56] >>> /start called
+[12:39:56] Initializing MediaPipe Pose
+[12:39:56] Opening camera index 0
+[12:39:57] Camera opened: True
+[12:39:57] Tracking loop started
+[12:40:30] Starting Pose Service (DEBUG MODE)
+[12:40:32] >>> /start called
+[12:40:32] Initializing MediaPipe Pose
+[12:40:32] Opening camera index 0
+[12:40:33] Camera opened: True
+[12:40:33] Tracking loop started
+[12:41:32] Starting Pose Service (DEBUG MODE)
+[12:41:34] >>> /start called
+[12:41:34] Initializing MediaPipe Pose
+[12:41:34] Opening camera index 0
+[12:41:35] Camera opened: True
+[12:41:35] Tracking loop started
+[12:43:54] Starting Pose Service (DEBUG MODE)
+[12:43:57] >>> /start called
+[12:43:57] Initializing MediaPipe Pose
+[12:43:57] Opening camera index 0
+[12:43:58] Camera opened: True
+[12:43:58] Tracking loop started
+[12:46:49] Starting Pose Service (DEBUG MODE)
+[12:46:51] >>> /start called
+[12:46:51] Initializing MediaPipe Pose
+[12:46:51] Opening camera index 0
+[12:46:52] Camera opened: True
+[12:46:52] Tracking loop started
+[12:57:48] Starting Pose Service (DEBUG MODE)
+[12:57:50] >>> /start called
+[12:57:50] Initializing MediaPipe Pose
+[12:57:50] Opening camera index 0
+[12:57:51] Camera opened: True
+[12:57:51] Tracking loop started
+[12:58:24] Starting Pose Service (DEBUG MODE)
+[12:58:26] >>> /start called
+[12:58:26] Initializing MediaPipe Pose
+[12:58:26] Opening camera index 0
+[12:58:27] Camera opened: True
+[12:58:27] Tracking loop started
+[12:59:16] Starting Pose Service (DEBUG MODE)
+[12:59:18] >>> /start called
+[12:59:18] Initializing MediaPipe Pose
+[12:59:18] Opening camera index 0
+[12:59:19] Camera opened: True
+[12:59:19] Tracking loop started
+[13:00:14] Starting Pose Service (DEBUG MODE)
+[13:00:17] >>> /start called
+[13:00:17] Initializing MediaPipe Pose
+[13:00:17] Opening camera index 0
+[13:00:17] Camera opened: True
+[13:00:18] Tracking loop started
+[13:01:33] Starting Pose Service (DEBUG MODE)
+[13:01:35] >>> /start called
+[13:01:35] Initializing MediaPipe Pose
+[13:01:35] Opening camera index 0
+[13:01:36] Camera opened: True
+[13:01:36] Tracking loop started
+[13:03:22] Starting Pose Service (DEBUG MODE)
+[13:03:25] >>> /start called
+[13:03:25] Initializing MediaPipe Pose
+[13:03:25] Opening camera index 0
+[13:03:25] Camera opened: True
+[13:03:25] Tracking loop started
+[13:04:21] Starting Pose Service (DEBUG MODE)
+[13:04:23] >>> /start called
+[13:04:23] Initializing MediaPipe Pose
+[13:04:23] Opening camera index 0
+[13:04:24] Camera opened: True
+[13:04:24] Tracking loop started
+[13:05:38] Starting Pose Service (DEBUG MODE)
+[13:05:41] >>> /start called
+[13:05:41] Initializing MediaPipe Pose
+[13:05:41] Opening camera index 0
+[13:05:41] Camera opened: True
+[13:05:41] Tracking loop started
+[13:08:43] Starting Pose Service (DEBUG MODE)
+[13:08:46] >>> /start called
+[13:08:46] Initializing MediaPipe Pose
+[13:08:46] Opening camera index 0
+[13:08:46] Camera opened: True
+[13:08:46] Tracking loop started
+[13:09:57] Starting Pose Service (DEBUG MODE)
+[13:10:00] >>> /start called
+[13:10:00] Initializing MediaPipe Pose
+[13:10:00] Opening camera index 0
+[13:10:01] Camera opened: True
+[13:10:01] Tracking loop started
+[13:12:08] Starting Pose Service (DEBUG MODE)
+[13:12:11] >>> /start called
+[13:12:11] Initializing MediaPipe Pose
+[13:12:11] Opening camera index 0
+[13:12:12] Camera opened: True
+[13:12:12] Tracking loop started
+[13:13:15] Starting Pose Service (DEBUG MODE)
+[13:13:18] >>> /start called
+[13:13:18] Initializing MediaPipe Pose
+[13:13:18] Opening camera index 0
+[13:13:18] Camera opened: True
+[13:13:18] Tracking loop started
+[13:15:41] Starting Pose Service (DEBUG MODE)
+[13:15:44] >>> /start called
+[13:15:44] Initializing MediaPipe Pose
+[13:15:44] Opening camera index 0
+[13:15:45] Camera opened: True
+[13:15:45] Tracking loop started
+[13:16:08] Starting Pose Service (DEBUG MODE)
+[13:17:04] Starting Pose Service (DEBUG MODE)
+[13:17:06] >>> /start called
+[13:17:06] Initializing MediaPipe Pose
+[13:17:06] Opening camera index 0
+[13:17:07] Camera opened: True
+[13:17:07] Tracking loop started
+[13:17:49] Starting Pose Service (DEBUG MODE)
+[13:17:52] >>> /start called
+[13:17:52] Initializing MediaPipe Pose
+[13:17:52] Opening camera index 0
+[13:17:52] Camera opened: True
+[13:17:52] Tracking loop started
+[13:32:47] Starting Pose Service (DEBUG MODE)
+[13:32:50] >>> /start called
+[13:32:50] Initializing MediaPipe Pose
+[13:32:50] Opening camera index 0
+[13:32:50] Camera opened: True
+[13:32:50] Tracking loop started
+[13:33:12] Starting Pose Service (DEBUG MODE)
+[13:33:14] >>> /start called
+[13:33:14] Initializing MediaPipe Pose
+[13:33:14] Opening camera index 0
+[13:33:14] Camera opened: True
+[13:33:14] Tracking loop started
+[13:43:07] Starting Pose Service (DEBUG MODE)
+[13:43:09] >>> /start called
+[13:43:09] Initializing MediaPipe Pose
+[13:43:09] Opening camera index 0
+[13:43:10] Camera opened: True
+[13:43:10] Tracking loop started
+[13:44:30] Starting Pose Service (DEBUG MODE)
+[13:44:33] >>> /start called
+[13:44:33] Initializing MediaPipe Pose
+[13:44:33] Opening camera index 0
+[13:44:33] Camera opened: True
+[13:44:33] Tracking loop started
+[13:49:51] Starting Pose Service (DEBUG MODE)
+[13:49:54] >>> /start called
+[13:49:54] Initializing MediaPipe Pose
+[13:49:54] Opening camera index 0
+[13:49:54] Camera opened: True
+[13:49:54] Tracking loop started
+[13:51:51] Starting Pose Service (DEBUG MODE)
+[13:51:54] >>> /start called
+[13:51:54] Initializing MediaPipe Pose
+[13:51:54] Opening camera index 0
+[13:51:55] Camera opened: True
+[13:51:55] Tracking loop started
+[13:52:20] Starting Pose Service (DEBUG MODE)
+[13:53:04] Starting Pose Service (DEBUG MODE)
+[13:53:06] >>> /start called
+[13:53:06] Initializing MediaPipe Pose
+[13:53:06] Opening camera index 0
+[13:53:06] Camera opened: True
+[13:53:06] Tracking loop started
+[13:55:25] Starting Pose Service (DEBUG MODE)
+[13:55:27] >>> /start called
+[13:55:27] Initializing MediaPipe Pose
+[13:55:27] Opening camera index 0
+[13:55:28] Camera opened: True
+[13:55:28] Tracking loop started
+[13:56:05] Starting Pose Service (DEBUG MODE)
+[13:56:08] >>> /start called
+[13:56:08] Initializing MediaPipe Pose
+[13:56:08] Opening camera index 0
+[13:56:08] Camera opened: True
+[13:56:08] Tracking loop started
+[13:57:12] Starting Pose Service (DEBUG MODE)
+[13:57:14] >>> /start called
+[13:57:14] Initializing MediaPipe Pose
+[13:57:14] Opening camera index 0
+[13:57:15] Camera opened: True
+[13:57:15] Tracking loop started
+[13:57:45] Starting Pose Service (DEBUG MODE)
+[13:57:47] >>> /start called
+[13:57:47] Initializing MediaPipe Pose
+[13:57:47] Opening camera index 0
+[13:57:48] Camera opened: True
+[13:57:48] Tracking loop started
+[15:25:22] Starting Pose Service (DEBUG MODE)
+[15:25:24] >>> /start called
+[15:25:24] Initializing MediaPipe Pose
+[15:25:24] Opening camera index 0
+[15:25:25] Camera opened: True
+[15:25:25] Tracking loop started
+[15:28:47] Starting Pose Service (DEBUG MODE)
+[15:28:49] >>> /start called
+[15:28:49] Initializing MediaPipe Pose
+[15:28:49] Opening camera index 0
+[15:28:50] Camera opened: True
+[15:28:50] Tracking loop started
+[15:29:40] Starting Pose Service (DEBUG MODE)
+[15:29:42] >>> /start called
+[15:29:42] Initializing MediaPipe Pose
+[15:29:42] Opening camera index 0
+[15:29:43] Camera opened: True
+[15:29:43] Tracking loop started
+[15:29:59] Starting Pose Service (DEBUG MODE)
+[15:30:01] >>> /start called
+[15:30:01] Initializing MediaPipe Pose
+[15:30:01] Opening camera index 0
+[15:30:02] Camera opened: True
+[15:30:02] Tracking loop started
+[15:30:15] Starting Pose Service (DEBUG MODE)
+[15:30:17] >>> /start called
+[15:30:17] Initializing MediaPipe Pose
+[15:30:17] Opening camera index 0
+[15:30:18] Camera opened: True
+[15:30:18] Tracking loop started
+[15:31:38] Starting Pose Service (DEBUG MODE)
+[15:31:41] >>> /start called
+[15:31:41] Initializing MediaPipe Pose
+[15:31:41] Opening camera index 0
+[15:31:41] Camera opened: True
+[15:31:41] Tracking loop started
+[15:35:19] Starting Pose Service (DEBUG MODE)
+[15:35:22] >>> /start called
+[15:35:22] Initializing MediaPipe Pose
+[15:35:22] Opening camera index 0
+[15:35:22] Camera opened: True
+[15:35:22] Tracking loop started
+[15:40:12] Starting Pose Service (DEBUG MODE)
+[15:40:14] >>> /start called
+[15:40:14] Initializing MediaPipe Pose
+[15:40:14] Opening camera index 0
+[15:40:15] Camera opened: True
+[15:40:15] Tracking loop started
+[15:40:44] Starting Pose Service (DEBUG MODE)
+[15:40:46] >>> /start called
+[15:40:46] Initializing MediaPipe Pose
+[15:40:46] Opening camera index 0
+[15:40:47] Camera opened: True
+[15:40:47] Tracking loop started
+[15:41:01] Starting Pose Service (DEBUG MODE)
+[15:41:06] Starting Pose Service (DEBUG MODE)
+[15:42:02] Starting Pose Service (DEBUG MODE)
+[15:42:05] >>> /start called
+[15:42:05] Initializing MediaPipe Pose
+[15:42:05] Opening camera index 0
+[15:42:06] Camera opened: True
+[15:42:06] Tracking loop started
+[15:43:17] Starting Pose Service (DEBUG MODE)
+[15:43:20] >>> /start called
+[15:43:20] Initializing MediaPipe Pose
+[15:43:20] Opening camera index 0
+[15:43:21] Camera opened: True
+[15:43:21] Tracking loop started
+[15:44:19] Starting Pose Service (DEBUG MODE)
+[15:44:23] >>> /start called
+[15:44:23] Initializing MediaPipe Pose
+[15:44:23] Opening camera index 0
+[15:44:23] Camera opened: True
+[15:44:23] Tracking loop started
+[15:45:52] Starting Pose Service (DEBUG MODE)
+[15:45:54] >>> /start called
+[15:45:54] Initializing MediaPipe Pose
+[15:45:54] Opening camera index 0
+[15:45:55] Camera opened: True
+[15:45:55] Tracking loop started
+[15:46:52] Starting Pose Service (DEBUG MODE)
+[15:46:55] >>> /start called
+[15:46:55] Initializing MediaPipe Pose
+[15:46:55] Opening camera index 0
+[15:46:56] Camera opened: True
+[15:46:56] Tracking loop started
+[15:47:16] Starting Pose Service (DEBUG MODE)
+[15:47:18] >>> /start called
+[15:47:18] Initializing MediaPipe Pose
+[15:47:18] Opening camera index 0
+[15:47:19] Camera opened: True
+[15:47:19] Tracking loop started
+[15:47:42] Starting Pose Service (DEBUG MODE)
+[15:47:45] >>> /start called
+[15:47:45] Initializing MediaPipe Pose
+[15:47:45] Opening camera index 0
+[15:47:46] Camera opened: True
+[15:47:46] Tracking loop started
+[15:48:23] Starting Pose Service (DEBUG MODE)
+[15:48:26] >>> /start called
+[15:48:26] Initializing MediaPipe Pose
+[15:48:26] Opening camera index 0
+[15:48:27] Camera opened: True
+[15:48:27] Tracking loop started
+[15:49:37] Starting Pose Service (DEBUG MODE)
+[15:49:40] >>> /start called
+[15:49:40] Initializing MediaPipe Pose
+[15:49:40] Opening camera index 0
+[15:49:41] Camera opened: True
+[15:49:41] Tracking loop started
+[15:51:00] Starting Pose Service (DEBUG MODE)
+[15:51:03] >>> /start called
+[15:51:03] Initializing MediaPipe Pose
+[15:51:03] Opening camera index 0
+[15:51:04] Camera opened: True
+[15:51:04] Tracking loop started
+[15:51:35] Starting Pose Service (DEBUG MODE)
+[15:51:38] >>> /start called
+[15:51:38] Initializing MediaPipe Pose
+[15:51:38] Opening camera index 0
+[15:51:39] Camera opened: True
+[15:51:39] Tracking loop started
+[15:56:16] Starting Pose Service (DEBUG MODE)
+[15:56:18] >>> /stop called
+[15:56:22] Starting Pose Service (DEBUG MODE)
+[15:56:25] >>> /start called
+[15:56:25] Initializing MediaPipe Pose
+[15:56:25] Opening camera index 0
+[15:56:25] Camera opened: True
+[15:56:25] Tracking loop started
+[15:56:37] >>> /stop called
+[15:56:37] Closing camera
+[15:56:38] Tracking loop exited
+[15:58:14] Starting Pose Service (DEBUG MODE)
+[15:58:17] >>> /start called
+[15:58:17] Initializing MediaPipe Pose
+[15:58:17] Opening camera index 0
+[15:58:18] Camera opened: True
+[15:58:18] Tracking loop started
+[15:58:49] Starting Pose Service (DEBUG MODE)
+[15:58:53] >>> /start called
+[15:58:53] Initializing MediaPipe Pose
+[15:58:53] Opening camera index 0
+[15:58:54] Camera opened: True
+[15:58:54] Tracking loop started
+[16:26:07] Starting Pose Service (DEBUG MODE)
+[16:26:10] >>> /start called
+[16:26:10] Initializing MediaPipe Pose
+[16:26:10] Opening camera index 0
+[16:26:11] Camera opened: True
+[16:26:11] Tracking loop started
+[16:35:12] Starting Pose Service (DEBUG MODE)
+[16:35:15] >>> /start called
+[16:35:15] Initializing MediaPipe Pose
+[16:35:16] Opening camera index 0
+[16:35:17] Camera opened: True
+[16:35:17] Tracking loop started
+[16:36:25] Starting Pose Service (DEBUG MODE)
+[16:36:29] >>> /start called
+[16:36:29] Initializing MediaPipe Pose
+[16:36:29] Opening camera index 0
+[16:36:30] Camera opened: True
+[16:36:30] Tracking loop started
+[16:37:54] Starting Pose Service (DEBUG MODE)
+[16:37:58] >>> /start called
+[16:37:58] Initializing MediaPipe Pose
+[16:37:58] Opening camera index 0
+[16:37:59] Camera opened: True
+[16:37:59] Tracking loop started
+[16:39:56] Starting Pose Service (DEBUG MODE)
+[16:48:11] Starting Pose Service (DEBUG MODE)
+[16:48:14] >>> /start called
+[16:48:14] Initializing MediaPipe Pose
+[16:48:14] Opening camera index 0
+[16:48:15] Camera opened: True
+[16:48:15] Tracking loop started
+[16:49:30] Starting Pose Service (DEBUG MODE)
+[16:49:33] >>> /start called
+[16:49:33] Initializing MediaPipe Pose
+[16:49:33] Opening camera index 0
+[16:49:34] Camera opened: True
+[16:49:34] Tracking loop started
+[17:03:17] Starting Pose Service (DEBUG MODE)
+[17:03:20] >>> /start called
+[17:03:20] Initializing MediaPipe Pose
+[17:03:20] Opening camera index 0
+[17:03:21] Camera opened: True
+[17:03:21] Tracking loop started
+[17:09:54] Starting Pose Service (DEBUG MODE)
+[17:09:57] >>> /start called
+[17:09:57] Initializing MediaPipe Pose
+[17:09:57] Opening camera index 0
+[17:09:58] Camera opened: True
+[17:09:58] Tracking loop started
+[17:11:58] Starting Pose Service (DEBUG MODE)
+[17:12:03] >>> /start called
+[17:12:03] Initializing MediaPipe Pose
+[17:12:03] Opening camera index 0
+[17:12:04] Camera opened: True
+[17:12:04] Tracking loop started
+[17:13:11] Starting Pose Service (DEBUG MODE)
+[17:13:15] >>> /start called
+[17:13:15] Initializing MediaPipe Pose
+[17:13:15] Opening camera index 0
+[17:13:16] Camera opened: True
+[17:13:16] Tracking loop started
+[17:22:50] Starting Pose Service (DEBUG MODE)
+[17:22:54] >>> /start called
+[17:22:54] Initializing MediaPipe Pose
+[17:22:54] Opening camera index 0
+[17:23:02] Camera opened: True
+[17:23:02] Tracking loop started
+[17:24:17] Starting Pose Service (DEBUG MODE)
+[17:24:20] >>> /start called
+[17:24:20] Initializing MediaPipe Pose
+[17:24:20] Opening camera index 0
+[17:24:21] Camera opened: True
+[17:24:21] Tracking loop started
+[17:33:34] Starting Pose Service (DEBUG MODE)
+[17:33:38] >>> /start called
+[17:33:38] Initializing MediaPipe Pose
+[17:33:39] Opening camera index 0
+[17:33:40] Camera opened: True
+[17:33:40] Tracking loop started
+[17:34:24] Starting Pose Service (DEBUG MODE)
+[17:34:29] >>> /start called
+[17:34:29] Initializing MediaPipe Pose
+[17:34:29] Opening camera index 0
+[17:34:30] Camera opened: True
+[17:34:30] Tracking loop started
+[17:34:58] Starting Pose Service (DEBUG MODE)
+[17:35:02] >>> /start called
+[17:35:02] Initializing MediaPipe Pose
+[17:35:02] Opening camera index 0
+[17:35:03] Camera opened: True
+[17:35:03] Tracking loop started
+[17:41:44] Starting Pose Service (DEBUG MODE)
+[17:41:47] >>> /start called
+[17:41:47] Initializing MediaPipe Pose
+[17:41:48] Opening camera index 0
+[17:41:49] Camera opened: True
+[17:41:49] Tracking loop started
+[17:43:58] Starting Pose Service (DEBUG MODE)
+[17:44:02] >>> /start called
+[17:44:02] Initializing MediaPipe Pose
+[17:44:02] Opening camera index 0
+[17:45:48] Starting Pose Service (DEBUG MODE)
+[17:45:53] >>> /start called
+[17:45:53] Initializing MediaPipe Pose
+[17:45:53] Opening camera index 0
+[17:45:54] Camera opened: True
+[17:45:54] Tracking loop started
+[17:47:44] Starting Pose Service (DEBUG MODE)
+[17:47:47] >>> /start called
+[17:47:47] Initializing MediaPipe Pose
+[17:47:47] Opening camera index 0
+[17:47:48] Camera opened: True
+[17:47:48] Tracking loop started
+[17:50:35] Starting Pose Service (DEBUG MODE)
+[17:50:40] >>> /start called
+[17:50:40] Initializing MediaPipe Pose
+[17:50:40] Opening camera index 0
+[17:50:41] Camera opened: True
+[17:50:41] Tracking loop started
+[17:56:59] Starting Pose Service (DEBUG MODE)
+[17:57:04] >>> /start called
+[17:57:04] Initializing MediaPipe Pose
+[17:57:04] Opening camera index 0
+[17:57:05] Camera opened: True
+[17:57:05] Tracking loop started
+[18:04:23] Starting Pose Service (DEBUG MODE)
+[18:04:27] >>> /start called
+[18:04:27] Initializing MediaPipe Pose
+[18:04:27] Opening camera index 0
+[18:04:28] Camera opened: True
+[18:04:28] Tracking loop started
+[18:47:48] Starting Pose Service (DEBUG MODE)
+[18:47:53] >>> /start called
+[18:47:53] Initializing MediaPipe Pose
+[18:47:53] Opening camera index 0
+[18:47:54] Camera opened: True
+[18:47:54] Tracking loop started
+[18:48:41] Starting Pose Service (DEBUG MODE)
+[18:48:43] >>> /start called
+[18:48:43] Initializing MediaPipe Pose
+[18:48:43] Opening camera index 0
+[18:48:44] Camera opened: True
+[18:48:44] Tracking loop started
+[18:52:23] Starting Pose Service (DEBUG MODE)
+[18:52:25] >>> /start called
+[18:52:25] Initializing MediaPipe Pose
+[18:52:25] Opening camera index 0
+[18:52:26] Camera opened: True
+[18:52:26] Tracking loop started
+[18:54:06] Starting Pose Service (DEBUG MODE)
+[18:54:08] >>> /start called
+[18:54:08] Initializing MediaPipe Pose
+[18:54:08] Opening camera index 0
+[18:54:09] Camera opened: True
+[18:54:09] Tracking loop started
+[18:54:14] >>> /stop called
+[18:54:14] Closing camera
+[18:54:14] Tracking loop exited
+[18:54:19] Starting Pose Service (DEBUG MODE)
+[18:54:20] >>> /stop called
+[18:56:39] Starting Pose Service (DEBUG MODE)
+[18:56:42] >>> /start called
+[18:56:42] Initializing MediaPipe Pose
+[18:56:42] Opening camera index 0
+[18:57:54] Starting Pose Service (DEBUG MODE)
+[18:57:57] >>> /start called
+[18:57:57] Initializing MediaPipe Pose
+[18:57:57] Opening camera index 0
+[19:02:22] Starting Pose Service (DEBUG MODE)
+[19:04:51] Starting Pose Service (DEBUG MODE)
+[19:04:55] >>> /start called
+[19:04:55] Initializing MediaPipe Pose
+[19:04:55] Opening camera index 0
+[19:04:56] Camera opened: True
+[19:04:56] Tracking loop started
+[19:05:07] >>> /stop called
+[19:05:07] Closing camera
+[19:05:08] Tracking loop exited
+[19:05:13] Starting Pose Service (DEBUG MODE)
+[19:05:15] >>> /start called
+[19:05:15] Initializing MediaPipe Pose
+[19:05:15] Opening camera index 0
+[19:05:16] Camera opened: True
+[19:05:16] Tracking loop started
+[19:06:22] >>> /stop called
+[19:06:22] Closing camera
+[19:06:22] Tracking loop exited
+[19:11:45] Starting Pose Service (DEBUG MODE)
+[19:11:49] >>> /start called
+[19:11:49] Initializing MediaPipe Pose
+[19:11:49] Opening camera index 0
+[19:11:50] Camera opened: True
+[19:11:50] Tracking loop started
+[19:12:28] >>> /stop called
+[19:12:28] Closing camera
+[19:12:28] Tracking loop exited
+[19:12:37] Starting Pose Service (DEBUG MODE)
+[19:12:40] >>> /start called
+[19:12:40] Initializing MediaPipe Pose
+[19:12:40] Opening camera index 0
+[19:12:41] Camera opened: True
+[19:12:41] Tracking loop started
+[19:22:42] Starting Pose Service (DEBUG MODE)
+[19:22:51] >>> /start called
+[19:22:51] Initializing MediaPipe Pose
+[19:22:51] Opening camera index 0
+[19:22:52] Camera opened: True
+[19:22:52] Tracking loop started
+[19:23:11] >>> /stop called
+[19:23:11] Closing camera
+[19:23:12] Tracking loop exited
+[19:23:18] Starting Pose Service (DEBUG MODE)
+[19:23:21] >>> /start called
+[19:23:21] Initializing MediaPipe Pose
+[19:23:21] Opening camera index 0
+[19:23:21] Camera opened: True
+[19:23:21] Tracking loop started
+[19:54:55] Starting Pose Service (DEBUG MODE)
+[19:54:58] >>> /start called
+[19:54:58] Initializing MediaPipe Pose
+[19:54:58] Opening camera index 0
+[19:54:59] Camera opened: True
+[19:54:59] Tracking loop started
+[19:57:23] Starting Pose Service (DEBUG MODE)
+[19:57:26] >>> /start called
+[19:57:26] Initializing MediaPipe Pose
+[19:57:26] Opening camera index 0
+[19:57:27] Camera opened: True
+[19:57:27] Tracking loop started
+[19:59:00] Starting Pose Service (DEBUG MODE)
+[19:59:02] >>> /stop called
+[19:59:07] Starting Pose Service (DEBUG MODE)
+[19:59:09] >>> /start called
+[19:59:09] Initializing MediaPipe Pose
+[19:59:09] Opening camera index 0
+[19:59:10] Camera opened: True
+[19:59:10] Tracking loop started
+[19:59:17] >>> /stop called
+[19:59:17] Closing camera
+[19:59:17] Tracking loop exited
+[20:00:24] Starting Pose Service (DEBUG MODE)
+[20:00:27] >>> /start called
+[20:00:27] Initializing MediaPipe Pose
+[20:00:27] Opening camera index 0
+[20:00:27] Camera opened: True
+[20:00:27] Tracking loop started
+[20:00:37] >>> /stop called
+[20:00:37] Closing camera
+[20:00:37] Tracking loop exited
+[20:10:34] Starting Pose Service (DEBUG MODE)
+[20:30:46] Starting Pose Service (DEBUG MODE)
+[20:30:49] >>> /start called
+[20:30:49] Initializing MediaPipe Pose
+[20:30:49] Opening camera index 0
+[20:30:50] Camera opened: True
+[20:30:50] Tracking loop started
+[20:30:53] >>> /stop called
+[20:30:53] Closing camera
+[20:30:54] Tracking loop exited
+[20:31:00] Starting Pose Service (DEBUG MODE)
+[20:31:02] >>> /start called
+[20:31:02] Initializing MediaPipe Pose
+[20:31:02] Opening camera index 0
+[20:31:03] Camera opened: True
+[20:31:03] Tracking loop started
+[20:31:42] Starting Pose Service (DEBUG MODE)
+[20:31:45] >>> /start called
+[20:31:45] Initializing MediaPipe Pose
+[20:31:45] Opening camera index 0
+[20:31:45] Camera opened: True
+[20:31:45] Tracking loop started
+[20:31:46] >>> /stop called
+[20:31:46] Closing camera
+[20:31:47] Tracking loop exited
+[20:31:50] Starting Pose Service (DEBUG MODE)
+[20:31:52] >>> /start called
+[20:31:52] Initializing MediaPipe Pose
+[20:31:52] Opening camera index 0
+[20:31:52] Camera opened: True
+[20:31:52] Tracking loop started
+[20:34:17] Starting Pose Service (DEBUG MODE)
+[20:34:19] >>> /stop called
+[20:34:22] Starting Pose Service (DEBUG MODE)
+[09:47:46] Starting Pose Service (DEBUG MODE)
+[09:47:48] >>> /start called
+[09:47:48] Initializing MediaPipe Pose
+[09:47:48] Opening camera index 0
+[09:47:50] Camera opened: True
+[09:47:50] Tracking loop started
+[09:47:51] >>> /stop called
+[09:47:51] Closing camera
+[09:47:52] Tracking loop exited
+[09:48:02] Starting Pose Service (DEBUG MODE)
+[09:48:04] >>> /start called
+[09:48:04] Initializing MediaPipe Pose
+[09:48:04] Opening camera index 0
+[09:48:05] Camera opened: True
+[09:48:05] Tracking loop started
+[09:48:48] >>> /stop called
+[09:48:48] Closing camera
+[09:48:49] Tracking loop exited
+[10:23:05] Starting Pose Service (DEBUG MODE)
+[10:23:08] >>> /start called
+[10:23:08] Initializing MediaPipe Pose
+[10:23:08] Opening camera index 0
+[10:23:09] Camera opened: True
+[10:23:09] Tracking loop started
+[10:23:11] >>> /stop called
+[10:23:11] Closing camera
+[10:23:12] Tracking loop exited
+[10:23:22] Starting Pose Service (DEBUG MODE)
+[10:23:24] >>> /start called
+[10:23:24] Initializing MediaPipe Pose
+[10:23:24] Opening camera index 0
+[10:23:25] Camera opened: True
+[10:23:25] Tracking loop started
+[10:23:33] >>> /stop called
+[10:23:33] Closing camera
+[10:23:34] Tracking loop exited
+[10:40:09] Starting Pose Service (DEBUG MODE)
+[10:40:11] >>> /start called
+[10:40:11] Initializing MediaPipe Pose
+[10:40:11] Opening camera index 0
+[10:40:12] Camera opened: True
+[10:40:12] Tracking loop started
+[10:40:35] Starting Pose Service (DEBUG MODE)
+[10:40:37] >>> /start called
+[10:40:37] Initializing MediaPipe Pose
+[10:40:37] Opening camera index 0
+[10:40:38] Camera opened: True
+[10:40:38] Tracking loop started
+[10:41:41] Starting Pose Service (DEBUG MODE)
+[10:41:43] >>> /start called
+[10:41:43] Initializing MediaPipe Pose
+[10:41:43] Opening camera index 0
+[10:41:44] Camera opened: True
+[10:41:44] Tracking loop started
+[10:42:25] Starting Pose Service (DEBUG MODE)
+[10:42:28] >>> /start called
+[10:42:28] Initializing MediaPipe Pose
+[10:42:28] Opening camera index 0
+[10:42:28] Camera opened: True
+[10:42:28] Tracking loop started
+[10:43:03] Starting Pose Service (DEBUG MODE)
+[10:43:06] >>> /start called
+[10:43:06] Initializing MediaPipe Pose
+[10:43:06] Opening camera index 0
+[10:43:06] Camera opened: True
+[10:43:06] Tracking loop started
+[10:44:42] Starting Pose Service (DEBUG MODE)
+[10:44:44] >>> /start called
+[10:44:44] Initializing MediaPipe Pose
+[10:44:44] Opening camera index 0
+[10:44:44] Camera opened: True
+[10:44:44] Tracking loop started
+[10:53:44] Starting Pose Service (DEBUG MODE)
+[10:53:46] >>> /stop called
+[10:55:01] Starting Pose Service (DEBUG MODE)
+[10:55:03] >>> /start called
+[10:55:03] Initializing MediaPipe Pose
+[10:55:03] Opening camera index 0
+[10:55:04] Camera opened: True
+[10:55:04] Tracking loop started
+[10:57:38] Starting Pose Service (DEBUG MODE)
+[11:25:17] Starting Pose Service (DEBUG MODE)
+[11:25:19] >>> /start called
+[11:25:19] Initializing MediaPipe Pose
+[11:25:19] Opening camera index 0
+[11:25:19] Camera opened: True
+[11:25:19] Tracking loop started
+[11:28:56] Starting Pose Service (DEBUG MODE)
+[11:28:59] >>> /start called
+[11:28:59] Initializing MediaPipe Pose
+[11:28:59] Opening camera index 0
+[11:28:59] Camera opened: True
+[11:28:59] Tracking loop started
+[12:15:48] Starting Pose Service (DEBUG MODE)
+[12:15:51] >>> /start called
+[12:15:51] Initializing MediaPipe Pose
+[12:15:51] Opening camera index 0
+[12:15:51] Camera opened: True
+[12:15:51] Tracking loop started
+[12:17:43] Starting Pose Service (DEBUG MODE)
+[12:17:46] >>> /start called
+[12:17:46] Initializing MediaPipe Pose
+[12:17:46] Opening camera index 0
+[12:17:46] Camera opened: True
+[12:17:46] Tracking loop started
+[12:19:16] Starting Pose Service (DEBUG MODE)
+[12:19:18] >>> /start called
+[12:19:18] Initializing MediaPipe Pose
+[12:19:18] Opening camera index 0
+[12:19:18] Camera opened: True
+[12:19:18] Tracking loop started
+[12:20:23] Starting Pose Service (DEBUG MODE)
+[12:20:26] >>> /start called
+[12:20:26] Initializing MediaPipe Pose
+[12:20:26] Opening camera index 0
+[12:20:26] Camera opened: True
+[12:20:26] Tracking loop started
+[12:21:35] Starting Pose Service (DEBUG MODE)
+[12:21:37] >>> /start called
+[12:21:37] Initializing MediaPipe Pose
+[12:21:37] Opening camera index 0
+[12:21:37] Camera opened: True
+[12:21:37] Tracking loop started
+[12:22:34] Starting Pose Service (DEBUG MODE)
+[12:22:36] >>> /start called
+[12:22:36] Initializing MediaPipe Pose
+[12:22:36] Opening camera index 0
+[12:22:37] Camera opened: True
+[12:22:37] Tracking loop started
+[12:23:00] Starting Pose Service (DEBUG MODE)
+[12:23:03] >>> /start called
+[12:23:03] Initializing MediaPipe Pose
+[12:23:03] Opening camera index 0
+[12:23:03] Camera opened: True
+[12:23:03] Tracking loop started
+[12:24:25] Starting Pose Service (DEBUG MODE)
+[12:24:27] >>> /start called
+[12:24:27] Initializing MediaPipe Pose
+[12:24:27] Opening camera index 0
+[12:24:28] Camera opened: True
+[12:24:28] Tracking loop started
+[12:24:41] Starting Pose Service (DEBUG MODE)
+[12:24:43] >>> /start called
+[12:24:43] Initializing MediaPipe Pose
+[12:24:43] Opening camera index 0
+[12:24:44] Camera opened: True
+[12:24:44] Tracking loop started
+[12:32:39] Starting Pose Service (DEBUG MODE)
+[12:32:41] >>> /start called
+[12:32:41] Initializing MediaPipe Pose
+[12:32:41] Opening camera index 0
+[12:32:42] Camera opened: True
+[12:32:42] Tracking loop started
+[12:36:43] Starting Pose Service (DEBUG MODE)
+[12:36:46] >>> /start called
+[12:36:46] Initializing MediaPipe Pose
+[12:36:46] Opening camera index 0
+[12:36:46] Camera opened: True
+[12:36:46] Tracking loop started
+[12:38:58] Starting Pose Service (DEBUG MODE)
+[12:39:01] >>> /start called
+[12:39:01] Initializing MediaPipe Pose
+[12:39:01] Opening camera index 0
+[12:39:02] Camera opened: True
+[12:39:02] Tracking loop started
+[12:41:44] Starting Pose Service (DEBUG MODE)
+[12:41:46] >>> /start called
+[12:41:46] Initializing MediaPipe Pose
+[12:41:46] Opening camera index 0
+[12:41:47] Camera opened: True
+[12:41:47] Tracking loop started
+[12:43:52] Starting Pose Service (DEBUG MODE)
+[12:43:54] >>> /start called
+[12:43:54] Initializing MediaPipe Pose
+[12:43:54] Opening camera index 0
+[12:43:55] Camera opened: True
+[12:43:55] Tracking loop started
+[12:45:21] Starting Pose Service (DEBUG MODE)
+[12:45:23] >>> /start called
+[12:45:23] Initializing MediaPipe Pose
+[12:45:23] Opening camera index 0
+[12:45:24] Camera opened: True
+[12:45:24] Tracking loop started
+[12:47:27] Starting Pose Service (DEBUG MODE)
+[12:47:29] >>> /start called
+[12:47:29] Initializing MediaPipe Pose
+[12:47:29] Opening camera index 0
+[12:47:30] Camera opened: True
+[12:47:30] Tracking loop started
+[12:51:51] Starting Pose Service (DEBUG MODE)
+[12:51:54] >>> /start called
+[12:51:54] Initializing MediaPipe Pose
+[12:51:54] Opening camera index 0
+[12:51:55] Camera opened: True
+[12:51:55] Tracking loop started
+[12:52:29] Starting Pose Service (DEBUG MODE)
+[12:52:32] >>> /start called
+[12:52:32] Initializing MediaPipe Pose
+[12:52:32] Opening camera index 0
+[12:52:33] Camera opened: True
+[12:52:33] Tracking loop started
+[12:53:15] Starting Pose Service (DEBUG MODE)
+[12:53:18] >>> /start called
+[12:53:18] Initializing MediaPipe Pose
+[12:53:18] Opening camera index 0
+[12:53:19] Camera opened: True
+[12:53:19] Tracking loop started
+[13:14:28] Starting Pose Service (DEBUG MODE)
+[13:14:30] >>> /stop called
+[13:19:44] Starting Pose Service (DEBUG MODE)
+[13:19:46] >>> /start called
+[13:19:46] Initializing MediaPipe Pose
+[13:19:46] Opening camera index 0
+[13:19:47] Camera opened: True
+[13:19:47] Tracking loop started
+[13:19:58] >>> /stop called
+[13:19:58] Closing camera
+[13:19:59] Tracking loop exited
+[13:22:05] Starting Pose Service (DEBUG MODE)
+[13:22:08] >>> /start called
+[13:22:08] Initializing MediaPipe Pose
+[13:22:08] Opening camera index 0
+[13:22:08] Camera opened: True
+[13:22:08] Tracking loop started
+[13:22:08] >>> /stop called
+[13:22:08] Closing camera
+[13:22:09] Tracking loop exited
+[13:23:31] Starting Pose Service (DEBUG MODE)
+[13:23:33] >>> /start called
+[13:23:33] Initializing MediaPipe Pose
+[13:23:33] Opening camera index 0
+[13:23:34] Camera opened: True
+[13:23:34] Tracking loop started
+[13:23:53] Starting Pose Service (DEBUG MODE)
+[13:26:09] Starting Pose Service (DEBUG MODE)
+[13:26:54] Starting Pose Service (DEBUG MODE)
+[14:18:02] Starting Pose Service (DEBUG MODE)
+[14:24:58] Starting Pose Service (DEBUG MODE)
+[14:26:48] Starting Pose Service (DEBUG MODE)
+[14:31:44] Starting Pose Service (DEBUG MODE)
+[15:22:31] Starting Pose Service (DEBUG MODE)
+[15:22:33] >>> /start called
+[15:22:33] Initializing MediaPipe Pose
+[15:22:33] Opening camera index 0
+[15:22:34] Camera opened: True
+[15:22:34] Tracking loop started
+[15:23:08] Starting Pose Service (DEBUG MODE)
+[15:23:10] >>> /start called
+[15:23:10] Initializing MediaPipe Pose
+[15:23:10] Opening camera index 0
+[15:23:11] Camera opened: True
+[15:23:11] Tracking loop started
+[15:38:20] Starting Pose Service (DEBUG MODE)
+[15:38:22] >>> /start called
+[15:38:22] Initializing MediaPipe Pose
+[15:38:22] Opening camera index 0
+[15:38:23] Camera opened: True
+[15:38:23] Tracking loop started
+[09:28:50] Starting Pose Service (DEBUG MODE)
+[09:28:52] >>> /start called
+[09:28:52] Initializing MediaPipe Pose
+[09:28:52] Opening camera index 0
+[09:28:54] Camera opened: True
+[09:28:54] Tracking loop started
+[11:15:33] Starting Pose Service (DEBUG MODE)
+[11:15:35] >>> /start called
+[11:15:35] Initializing MediaPipe Pose
+[11:15:36] Opening camera index 0
+[11:15:36] Camera opened: True
+[11:15:36] Tracking loop started
+[11:18:08] Starting Pose Service (DEBUG MODE)
+[11:18:10] >>> /start called
+[11:18:10] Initializing MediaPipe Pose
+[11:18:10] Opening camera index 0
+[11:18:11] Camera opened: True
+[11:18:11] Tracking loop started

@@ -1,6 +1,8 @@
 { slot ? "a", ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
+
   imports = [
     ./hardware.nix
     ./disko.nix
@@ -10,7 +12,13 @@
     ../../modules/kiosk
     ../../modules/system/debug-ssh.nix
     ../../modules/system/ota-update.nix
+    ../../modules/services/python-server.nix
   ];
+
+  services.tomoro-server = {
+    enable = true;
+    dataDir = "/data";
+  };
 
   # Filesystems by label — both disko and the legacy installer script format
   # the disk with these labels, so this config works on any target disk
@@ -36,7 +44,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
 
-  networking.networkmanager.enable = true;
+  networking.useDHCP = true;
 
   system.stateVersion = "26.11";
 }

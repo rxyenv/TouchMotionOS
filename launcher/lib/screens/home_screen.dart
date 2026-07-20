@@ -97,12 +97,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ),
     _Game(
-      id: 'tomoro-dashlands',
-      title: 'Dashlands',
-      tagline: (l10n) => l10n.taglineDashlands,
+      id: 'tomoro-yogaflow',
+      title: 'YogaFlow',
+      tagline: (l10n) => l10n.taglineYogaFlow,
       accent: _lavender,
       artBuilder: (sx, sy) =>
-          _framedShot('assets/dashlands/dashlands.png', sx, sy),
+          _framedShot('assets/yogaflow/thumb.png', sx, sy),
     ),
   ];
 
@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_launching != null) return;
     setState(() => _launching = game.id);
     try {
-      await Process.start(game.id, const [], mode: ProcessStartMode.detached);
+      await Process.start('steam-run', [game.id], mode: ProcessStartMode.detached);
     } on ProcessException {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -413,6 +413,8 @@ class _HomeScreenState extends State<HomeScreen> {
             side: BorderSide(color: _ink.withValues(alpha: 0.1), width: 1.3),
           ),
           child: InkWell(
+            autofocus: game == _games.first,
+            focusColor: _lavenderDeep.withValues(alpha: 0.45),
             onTap: () => _launchGame(game),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

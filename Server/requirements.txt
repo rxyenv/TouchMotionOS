@@ -1,0 +1,15 @@
+fastapi
+fastdtw
+Flask
+jax
+jaxlib
+matplotlib
+mediapipe
+numpy
+opencv-contrib-python-headless
+opencv-python-headless
+pydantic
+scipy
+sentencepiece
+sounddevice
+uvicorn

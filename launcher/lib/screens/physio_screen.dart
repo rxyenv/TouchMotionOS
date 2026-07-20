@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
+import '../widgets/focusable_tap.dart';
 import '../widgets/power_button.dart';
 
 /// Contact-my-physio screen: consult a physio or book an appointment.
@@ -120,8 +121,9 @@ class PhysioScreen extends StatelessWidget {
     required String subtitle,
     required VoidCallback onTap,
   }) {
-    return GestureDetector(
+    return FocusableTap(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(sy(28)),
       child: Container(
         width: sx(380),
         padding: EdgeInsets.all(sy(36)),
