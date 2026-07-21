@@ -78,5 +78,12 @@
   "enterPassword": "പാസ്‌വേഡ് നൽകുക",
   "passwordFor": "\"{ssid}\" പാസ്‌വേഡ്",
   "wifi": "വൈ-ഫൈ",
-  "ethernet": "ഇഥർനെറ്റ്"
+  "ethernet": "ഇഥർനെറ്റ്",
+
+  "timeFormat": "സമയ ഫോർമാറ്റ്",
+  "hour12": "12-മണിക്കൂർ",
+  "hour24": "24-മണിക്കൂർ",
+  "changeTimeZone": "മാറ്റുക",
+  "selectTimeZone": "സമയ മേഖല തിരഞ്ഞെടുക്കുക",
+  "searchTimeZones": "സമയ മേഖലകൾ തിരയുക…"
 }

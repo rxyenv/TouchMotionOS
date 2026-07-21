@@ -217,7 +217,7 @@ abstract class AppLocalizations {
   /// No description provided for @taglineYogaFlow.
   ///
   /// In en, this message translates to:
-  /// **'Dash, jump, and race across the lands'**
+  /// **'Flow through poses — move at your own pace'**
   String get taglineYogaFlow;
 
   /// No description provided for @whoIsPlaying.
@@ -361,7 +361,7 @@ abstract class AppLocalizations {
   /// No description provided for @presYogaFlow.
   ///
   /// In en, this message translates to:
-  /// **'10 minutes — step in place'**
+  /// **'10 minutes — yoga flow poses'**
   String get presYogaFlow;
 
   /// No description provided for @sugg1.
@@ -543,6 +543,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ethernet'**
   String get ethernet;
+
+  /// No description provided for @timeFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Format'**
+  String get timeFormat;
+
+  /// No description provided for @hour12.
+  ///
+  /// In en, this message translates to:
+  /// **'12-hour'**
+  String get hour12;
+
+  /// No description provided for @hour24.
+  ///
+  /// In en, this message translates to:
+  /// **'24-hour'**
+  String get hour24;
+
+  /// No description provided for @changeTimeZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get changeTimeZone;
+
+  /// No description provided for @selectTimeZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Select time zone'**
+  String get selectTimeZone;
+
+  /// No description provided for @searchTimeZones.
+  ///
+  /// In en, this message translates to:
+  /// **'Search time zones…'**
+  String get searchTimeZones;
 }
 
 class _AppLocalizationsDelegate

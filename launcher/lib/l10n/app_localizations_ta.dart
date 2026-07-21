@@ -247,4 +247,22 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get ethernet => 'ஈதர்நெட்';
+
+  @override
+  String get timeFormat => 'நேர வடிவம்';
+
+  @override
+  String get hour12 => '12-மணி';
+
+  @override
+  String get hour24 => '24-மணி';
+
+  @override
+  String get changeTimeZone => 'மாற்று';
+
+  @override
+  String get selectTimeZone => 'நேர மண்டலம் தேர்வு செய்க';
+
+  @override
+  String get searchTimeZones => 'நேர மண்டலங்கள் தேடுக…';
 }

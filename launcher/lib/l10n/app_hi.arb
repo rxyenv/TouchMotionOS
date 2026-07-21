@@ -78,5 +78,12 @@
   "enterPassword": "पासवर्ड डालें",
   "passwordFor": "\"{ssid}\" का पासवर्ड",
   "wifi": "वाई-फ़ाई",
-  "ethernet": "ईथरनेट"
+  "ethernet": "ईथरनेट",
+
+  "timeFormat": "समय प्रारूप",
+  "hour12": "12-घंटे",
+  "hour24": "24-घंटे",
+  "changeTimeZone": "बदलें",
+  "selectTimeZone": "समय क्षेत्र चुनें",
+  "searchTimeZones": "समय क्षेत्र खोजें…"
 }

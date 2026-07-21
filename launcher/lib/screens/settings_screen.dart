@@ -9,6 +9,197 @@ import '../languages.dart';
 import '../session.dart';
 import '../widgets/onscreen_keyboard.dart';
 
+// ---------------------------------------------------------------------------
+// Timezone picker dialog
+// ---------------------------------------------------------------------------
+
+class _TzPickerDialog extends StatefulWidget {
+  const _TzPickerDialog({required this.current});
+  final String current;
+
+  @override
+  State<_TzPickerDialog> createState() => _TzPickerDialogState();
+}
+
+class _TzPickerDialogState extends State<_TzPickerDialog> {
+  static const _ink = Color(0xFF1C1C1E);
+  static const _lavender = Color(0xFFF2E7FA);
+
+  List<String>? _allZones;
+  String _query = '';
+  bool _loading = true;
+  String? _applying;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    try {
+      final result = await Process.run('timedatectl', ['list-timezones']);
+      final zones = (result.stdout as String)
+          .split('\n')
+          .map((s) => s.trim())
+          .where((s) => s.isNotEmpty)
+          .toList();
+      if (mounted) setState(() { _allZones = zones; _loading = false; });
+    } on Exception {
+      if (mounted) setState(() { _allZones = []; _loading = false; });
+    }
+  }
+
+  List<String> get _filtered {
+    final q = _query.toLowerCase();
+    if (q.isEmpty) return _allZones ?? [];
+    return (_allZones ?? []).where((z) => z.toLowerCase().contains(q)).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final screenH = MediaQuery.of(context).size.height;
+    final screenW = MediaQuery.of(context).size.width;
+    double sy(double v) => v * (screenH / 1080.0);
+    double sx(double v) => v * (screenW / 1920.0);
+
+    return Dialog(
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(sy(28))),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: sx(900), maxHeight: sy(800)),
+        child: Padding(
+          padding: EdgeInsets.all(sy(32)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.selectTimeZone,
+                style: TextStyle(color: _ink, fontSize: sy(36), fontWeight: FontWeight.w800),
+              ),
+              SizedBox(height: sy(20)),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: sx(24), vertical: sy(12)),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF4F4F6),
+                  borderRadius: BorderRadius.circular(sy(14)),
+                  border: Border.all(color: _ink.withValues(alpha: 0.15)),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.search_rounded, color: _ink.withValues(alpha: 0.45), size: sy(28)),
+                    SizedBox(width: sx(16)),
+                    Expanded(
+                      child: Text(
+                        _query.isEmpty
+                            ? AppLocalizations.of(context)!.searchTimeZones
+                            : _query,
+                        style: TextStyle(
+                          color: _query.isEmpty ? _ink.withValues(alpha: 0.35) : _ink,
+                          fontSize: sy(24),
+                        ),
+                      ),
+                    ),
+                    if (_query.isNotEmpty)
+                      GestureDetector(
+                        onTap: () => setState(() => _query = ''),
+                        child: Icon(Icons.close_rounded, size: sy(26), color: _ink.withValues(alpha: 0.45)),
+                      ),
+                  ],
+                ),
+              ),
+              SizedBox(height: sy(8)),
+              OnscreenKeyboard(
+                onKey: (k) => setState(() => _query += k),
+                onBackspace: () => setState(() {
+                  if (_query.isNotEmpty) _query = _query.substring(0, _query.length - 1);
+                }),
+                onSubmit: () {},
+              ),
+              SizedBox(height: sy(16)),
+              if (_error != null)
+                Padding(
+                  padding: EdgeInsets.only(bottom: sy(8)),
+                  child: Text(_error!, style: TextStyle(color: Colors.redAccent, fontSize: sy(20))),
+                ),
+              Expanded(
+                child: _loading
+                    ? const Center(child: CircularProgressIndicator(color: _ink))
+                    : ListView.builder(
+                        itemCount: _filtered.length,
+                        itemBuilder: (_, i) {
+                          final tz = _filtered[i];
+                          final isCurrent = tz == widget.current;
+                          final applying = _applying == tz;
+                          return InkWell(
+                            borderRadius: BorderRadius.circular(sy(12)),
+                            onTap: applying || isCurrent
+                                ? null
+                                : () async {
+                                    setState(() { _applying = tz; _error = null; });
+                                    final ok = await Session.setTimeZone(tz);
+                                    if (!mounted) return;
+                                    if (ok) {
+                                      // ignore: use_build_context_synchronously
+                                      Navigator.of(context).pop();
+                                    } else {
+                                      setState(() { _applying = null; _error = 'Failed to set timezone (need root?)'; });
+                                    }
+                                  },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: sx(16), vertical: sy(14)),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      tz,
+                                      style: TextStyle(
+                                        color: isCurrent ? const Color(0xFF7C3AED) : _ink,
+                                        fontSize: sy(24),
+                                        fontWeight: isCurrent ? FontWeight.w700 : FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  if (applying)
+                                    SizedBox(width: sy(24), height: sy(24),
+                                      child: const CircularProgressIndicator(strokeWidth: 3, color: _ink))
+                                  else if (isCurrent)
+                                    Container(
+                                      padding: EdgeInsets.symmetric(horizontal: sx(16), vertical: sy(6)),
+                                      decoration: BoxDecoration(
+                                        color: _lavender,
+                                        borderRadius: BorderRadius.circular(sy(20)),
+                                      ),
+                                      child: Text('Current',
+                                        style: TextStyle(color: const Color(0xFF7C3AED), fontSize: sy(20), fontWeight: FontWeight.w700)),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+              ),
+              SizedBox(height: sy(8)),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text(
+                    AppLocalizations.of(context)!.cancel,
+                    style: TextStyle(color: _ink.withValues(alpha: 0.55), fontSize: sy(22)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 /// Settings screen matching the home screen aesthetic: white canvas, ink
 /// headlines, lavender accents. Currently hosts the Network section, which
 /// polls the `tomoro-net` Rust binary for ethernet/wifi state.
@@ -94,13 +285,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   void initState() {
     super.initState();
+    Session.loadTimeSettings();
+    Session.use24h.addListener(_onTimeSettingChange);
+    Session.timeZone.addListener(_onTimeSettingChange);
     _refresh();
     _pollTimer = Timer.periodic(const Duration(seconds: 3), (_) => _refresh());
   }
 
+  void _onTimeSettingChange() => setState(() {});
+
   @override
   void dispose() {
     _pollTimer?.cancel();
+    Session.use24h.removeListener(_onTimeSettingChange);
+    Session.timeZone.removeListener(_onTimeSettingChange);
     super.dispose();
   }
 
@@ -347,6 +545,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SizedBox(height: sy(24)),
             _languagePicker(sx, sy),
             SizedBox(height: sy(40)),
+            _sectionTitle(l10n.timeFormat, sy),
+            SizedBox(height: sy(20)),
+            _clockFormatPicker(sx, sy, l10n),
+            SizedBox(height: sy(20)),
+            _timeZoneRow(sx, sy, l10n),
+            SizedBox(height: sy(40)),
             _sectionTitle(l10n.network, sy),
             SizedBox(height: sy(28)),
             Expanded(child: _networkBody(sx, sy)),
@@ -424,6 +628,97 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _clockFormatPicker(
+    double Function(double) sx,
+    double Function(double) sy,
+    AppLocalizations l10n,
+  ) {
+    final is24 = Session.use24h.value;
+    return Wrap(
+      spacing: sx(20),
+      children: [
+        _formatPill(l10n.hour12, !is24, () => Session.setUse24h(false), sx, sy),
+        _formatPill(l10n.hour24, is24, () => Session.setUse24h(true), sx, sy),
+      ],
+    );
+  }
+
+  Widget _formatPill(
+    String label,
+    bool selected,
+    VoidCallback onTap,
+    double Function(double) sx,
+    double Function(double) sy,
+  ) {
+    return Material(
+      color: selected ? _ink : _lavender,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(sy(40)),
+        side: BorderSide(
+          color: selected ? _ink : _ink.withValues(alpha: 0.12),
+          width: 1.3,
+        ),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: sx(36), vertical: sy(16)),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (selected) ...[
+                Icon(Icons.check_rounded, size: sy(26), color: Colors.white),
+                SizedBox(width: sx(12)),
+              ],
+              Text(
+                label,
+                style: TextStyle(
+                  color: selected ? Colors.white : _ink,
+                  fontSize: sy(24),
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _timeZoneRow(
+    double Function(double) sx,
+    double Function(double) sy,
+    AppLocalizations l10n,
+  ) {
+    final tz = Session.timeZone.value;
+    return Row(
+      children: [
+        Icon(Icons.public_rounded, size: sy(36), color: _ink.withValues(alpha: 0.55)),
+        SizedBox(width: sx(20)),
+        Text(
+          tz.isEmpty ? '—' : tz,
+          style: TextStyle(color: _ink, fontSize: sy(26), fontWeight: FontWeight.w600),
+        ),
+        const Spacer(),
+        FilledButton(
+          style: FilledButton.styleFrom(
+            backgroundColor: _ink,
+            padding: EdgeInsets.symmetric(horizontal: sx(28), vertical: sy(14)),
+          ),
+          onPressed: () => showDialog<void>(
+            context: context,
+            builder: (_) => _TzPickerDialog(current: tz),
+          ),
+          child: Text(
+            l10n.changeTimeZone,
+            style: TextStyle(fontSize: sy(22), fontWeight: FontWeight.w700),
+          ),
+        ),
+      ],
     );
   }
 

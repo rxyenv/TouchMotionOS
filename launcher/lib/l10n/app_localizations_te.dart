@@ -65,8 +65,7 @@ class AppLocalizationsTe extends AppLocalizations {
   String get taglineCatNap => 'మీ కదలికలతో పిల్లిని మేల్కొని ఉంచండి';
 
   @override
-  String get taglineYogaFlow =>
-      'పరుగెత్తండి, దూకండి, భూముల మీదుగా రేసు వేయండి';
+  String get taglineYogaFlow => 'పరుగెత్తండి, దూకండి, భూముల మీదుగా రేసు వేయండి';
 
   @override
   String get whoIsPlaying => 'ఈరోజు ఎవరు ఆడుతున్నారు?';
@@ -241,4 +240,22 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get ethernet => 'ఈథర్నెట్';
+
+  @override
+  String get timeFormat => 'సమయ ఆకృతి';
+
+  @override
+  String get hour12 => '12-గంటల';
+
+  @override
+  String get hour24 => '24-గంటల';
+
+  @override
+  String get changeTimeZone => 'మార్చు';
+
+  @override
+  String get selectTimeZone => 'సమయ మండలం ఎంచుకోండి';
+
+  @override
+  String get searchTimeZones => 'సమయ మండలాలు వెతకండి…';
 }

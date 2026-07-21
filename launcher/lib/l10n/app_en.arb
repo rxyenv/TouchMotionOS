@@ -108,5 +108,12 @@
     }
   },
   "wifi": "Wi-Fi",
-  "ethernet": "Ethernet"
+  "ethernet": "Ethernet",
+
+  "timeFormat": "Time Format",
+  "hour12": "12-hour",
+  "hour24": "24-hour",
+  "changeTimeZone": "Change",
+  "selectTimeZone": "Select time zone",
+  "searchTimeZones": "Search time zones…"
 }

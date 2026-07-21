@@ -78,5 +78,12 @@
   "enterPassword": "పాస్‌వర్డ్ నమోదు చేయండి",
   "passwordFor": "\"{ssid}\" పాస్‌వర్డ్",
   "wifi": "వై-ఫై",
-  "ethernet": "ఈథర్నెట్"
+  "ethernet": "ఈథర్నెట్",
+
+  "timeFormat": "సమయ ఆకృతి",
+  "hour12": "12-గంటల",
+  "hour24": "24-గంటల",
+  "changeTimeZone": "మార్చు",
+  "selectTimeZone": "సమయ మండలం ఎంచుకోండి",
+  "searchTimeZones": "సమయ మండలాలు వెతకండి…"
 }

@@ -242,4 +242,22 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get ethernet => 'ഇഥർനെറ്റ്';
+
+  @override
+  String get timeFormat => 'സമയ ഫോർമാറ്റ്';
+
+  @override
+  String get hour12 => '12-മണിക്കൂർ';
+
+  @override
+  String get hour24 => '24-മണിക്കൂർ';
+
+  @override
+  String get changeTimeZone => 'മാറ്റുക';
+
+  @override
+  String get selectTimeZone => 'സമയ മേഖല തിരഞ്ഞെടുക്കുക';
+
+  @override
+  String get searchTimeZones => 'സമയ മേഖലകൾ തിരയുക…';
 }

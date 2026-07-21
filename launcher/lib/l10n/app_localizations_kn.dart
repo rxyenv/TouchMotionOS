@@ -240,4 +240,22 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get ethernet => 'ಇಥರ್ನೆಟ್';
+
+  @override
+  String get timeFormat => 'ಸಮಯ ಸ್ವರೂಪ';
+
+  @override
+  String get hour12 => '12-ಗಂಟೆ';
+
+  @override
+  String get hour24 => '24-ಗಂಟೆ';
+
+  @override
+  String get changeTimeZone => 'ಬದಲಾಯಿಸಿ';
+
+  @override
+  String get selectTimeZone => 'ಸಮಯ ವಲಯ ಆಯ್ಕೆ ಮಾಡಿ';
+
+  @override
+  String get searchTimeZones => 'ಸಮಯ ವಲಯ ಹುಡುಕಿ…';
 }

@@ -239,4 +239,22 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get ethernet => 'ईथरनेट';
+
+  @override
+  String get timeFormat => 'समय प्रारूप';
+
+  @override
+  String get hour12 => '12-घंटे';
+
+  @override
+  String get hour24 => '24-घंटे';
+
+  @override
+  String get changeTimeZone => 'बदलें';
+
+  @override
+  String get selectTimeZone => 'समय क्षेत्र चुनें';
+
+  @override
+  String get searchTimeZones => 'समय क्षेत्र खोजें…';
 }

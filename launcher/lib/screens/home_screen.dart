@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../l10n/app_localizations.dart';
+import '../session.dart';
 import '../widgets/power_button.dart';
 import 'physio_screen.dart';
 import 'settings_screen.dart';
@@ -116,17 +117,25 @@ class _HomeScreenState extends State<HomeScreen> {
     _clockTimer = Timer.periodic(const Duration(seconds: 10), (_) {
       setState(() => _now = DateTime.now());
     });
+    Session.use24h.addListener(_onFormatChange);
   }
 
   @override
   void dispose() {
     _clockTimer.cancel();
+    Session.use24h.removeListener(_onFormatChange);
     super.dispose();
   }
 
+  void _onFormatChange() => setState(() {});
+
   String get _clock {
-    final h = _now.hour % 12 == 0 ? 12 : _now.hour % 12;
     final m = _now.minute.toString().padLeft(2, '0');
+    if (Session.use24h.value) {
+      final h = _now.hour.toString().padLeft(2, '0');
+      return '$h:$m';
+    }
+    final h = _now.hour % 12 == 0 ? 12 : _now.hour % 12;
     final ampm = _now.hour < 12 ? 'AM' : 'PM';
     return '$h:$m $ampm';
   }

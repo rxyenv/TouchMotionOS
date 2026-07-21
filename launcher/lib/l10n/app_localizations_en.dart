@@ -243,4 +243,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ethernet => 'Ethernet';
+
+  @override
+  String get timeFormat => 'Time Format';
+
+  @override
+  String get hour12 => '12-hour';
+
+  @override
+  String get hour24 => '24-hour';
+
+  @override
+  String get changeTimeZone => 'Change';
+
+  @override
+  String get selectTimeZone => 'Select time zone';
+
+  @override
+  String get searchTimeZones => 'Search time zones…';
 }

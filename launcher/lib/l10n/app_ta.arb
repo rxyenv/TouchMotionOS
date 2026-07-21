@@ -78,5 +78,12 @@
   "enterPassword": "கடவுச்சொல்லை உள்ளிடவும்",
   "passwordFor": "\"{ssid}\" கடவுச்சொல்",
   "wifi": "வை-ஃபை",
-  "ethernet": "ஈதர்நெட்"
+  "ethernet": "ஈதர்நெட்",
+
+  "timeFormat": "நேர வடிவம்",
+  "hour12": "12-மணி",
+  "hour24": "24-மணி",
+  "changeTimeZone": "மாற்று",
+  "selectTimeZone": "நேர மண்டலம் தேர்வு செய்க",
+  "searchTimeZones": "நேர மண்டலங்கள் தேடுக…"
 }

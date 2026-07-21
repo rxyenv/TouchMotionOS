@@ -78,5 +78,12 @@
   "enterPassword": "ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ",
   "passwordFor": "\"{ssid}\" ಪಾಸ್‌ವರ್ಡ್",
   "wifi": "ವೈ-ಫೈ",
-  "ethernet": "ಇಥರ್ನೆಟ್"
+  "ethernet": "ಇಥರ್ನೆಟ್",
+
+  "timeFormat": "ಸಮಯ ಸ್ವರೂಪ",
+  "hour12": "12-ಗಂಟೆ",
+  "hour24": "24-ಗಂಟೆ",
+  "changeTimeZone": "ಬದಲಾಯಿಸಿ",
+  "selectTimeZone": "ಸಮಯ ವಲಯ ಆಯ್ಕೆ ಮಾಡಿ",
+  "searchTimeZones": "ಸಮಯ ವಲಯ ಹುಡುಕಿ…"
 }
