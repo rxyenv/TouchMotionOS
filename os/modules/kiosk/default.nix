@@ -6,6 +6,15 @@ let
   yogaflow = pkgs.callPackage ../../../games/yogaflow { };
 in
 {
+  # Allow the kiosk user to set the system timezone without a password.
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (action.id === "org.freedesktop.timedate1.set-timezone" &&
+          subject.user === "tomoro") {
+        return polkit.Result.YES;
+      }
+    });
+  '';
   # iw: tomoro-net shells out to it for the connected SSID.
   # wpa_supplicant: provides wpa_cli, which tomoro-net drives for
   # wifi scan/connect from the settings screen.

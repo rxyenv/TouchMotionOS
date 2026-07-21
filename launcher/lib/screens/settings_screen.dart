@@ -144,7 +144,7 @@ class _TzPickerDialogState extends State<_TzPickerDialog> {
                                       // ignore: use_build_context_synchronously
                                       Navigator.of(context).pop();
                                     } else {
-                                      setState(() { _applying = null; _error = 'Failed to set timezone (need root?)'; });
+                                      setState(() { _applying = null; _error = 'Failed to set timezone'; });
                                     }
                                   },
                             child: Padding(

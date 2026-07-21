@@ -3,6 +3,8 @@ sys.stdout.reconfigure(line_buffering=True, write_through=True)
 
 import cv2
 import mediapipe as mp
+from mediapipe.tasks import python as mp_python
+from mediapipe.tasks.python import vision as mp_vision
 import numpy as np
 import math
 import time
@@ -11,6 +13,7 @@ import socket
 import threading
 import struct
 import os
+import urllib.request
 from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -25,6 +28,9 @@ POSE_IDX = {
     "LEFT_FOOT_INDEX": 31, "RIGHT_FOOT_INDEX": 32
 }
 
+MODEL_PATH = "/var/lib/tomoro-server/pose_landmarker_full.task"
+MODEL_URL = "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task"
+
 # ================= HARD LOGGER =================
 def log(msg):
     ts = time.strftime("%H:%M:%S")
@@ -38,8 +44,6 @@ CONFIG = {
     "CAM_INDEX": 0,
     "PCK_THRESHOLD": 0.2,
     "REFERENCE_FRAMES": 60,
-    "static_image_mode": False,
-    "model_complexity": 1,
     "enable_segmentation": False,
     "min_detection_confidence": 0.5,
     "min_tracking_confidence": 0.5,
@@ -54,10 +58,7 @@ CONFIG = {
 # ================= FASTAPI =================
 app = FastAPI()
 
-# ================= MEDIAPIPE =================
-mp_pose = mp.solutions.pose
-mp_draw = mp.solutions.drawing_utils
-
+# ================= STATE =================
 pose = None
 cap = None
 tracking_active = False
@@ -76,8 +77,6 @@ class ConfigUpdate(BaseModel):
     CAM_INDEX: Optional[int] = None
     PCK_THRESHOLD: Optional[float] = None
     REFERENCE_FRAMES: Optional[int] = None
-    static_image_mode: Optional[bool] = None
-    model_complexity: Optional[int] = None
     enable_segmentation: Optional[bool] = None
     min_detection_confidence: Optional[float] = None
     min_tracking_confidence: Optional[float] = None
@@ -86,9 +85,17 @@ class ConfigUpdate(BaseModel):
     UDP_CHUNK_SIZE: Optional[int] = None
 
 # ================= HELPERS =================
+def download_model():
+    if not os.path.exists(MODEL_PATH):
+        log(f"Downloading pose model...")
+        os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
+        urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+        log("Model downloaded")
+
 def build_pose():
     global pose
     log("Initializing MediaPipe Pose")
+    download_model()
 
     if pose:
         try:
@@ -97,13 +104,17 @@ def build_pose():
             pass
         pose = None
 
-    pose = mp_pose.Pose(
-        static_image_mode=CONFIG["static_image_mode"],
-        model_complexity=CONFIG["model_complexity"],
-        enable_segmentation=CONFIG["enable_segmentation"],
-        min_detection_confidence=CONFIG["min_detection_confidence"],
-        min_tracking_confidence=CONFIG["min_tracking_confidence"]
+    base_opts = mp_python.BaseOptions(model_asset_path=MODEL_PATH)
+    opts = mp_vision.PoseLandmarkerOptions(
+        base_options=base_opts,
+        running_mode=mp_vision.RunningMode.VIDEO,
+        num_poses=1,
+        min_pose_detection_confidence=CONFIG["min_detection_confidence"],
+        min_pose_presence_confidence=CONFIG["min_detection_confidence"],
+        min_tracking_confidence=CONFIG["min_tracking_confidence"],
+        output_segmentation_masks=CONFIG["enable_segmentation"],
     )
+    pose = mp_vision.PoseLandmarker.create_from_options(opts)
 
 def open_camera():
     global cap
@@ -194,23 +205,21 @@ def compute_pck(pred, gt):
     return score
 
 def map_full_body(world_landmarks):
-    lm = world_landmarks.landmark
     out = {}
-
     for name, i in POSE_IDX.items():
+        lm = world_landmarks[i]
         out[name.lower()] = {
-            "x": round(lm[i].x, 4),
-            "y": round(lm[i].y, 4),
-            "z": round(lm[i].z, 4),
-            "score": round(lm[i].visibility, 3),
-            "presence": round(lm[i].presence, 3)
+            "x": round(lm.x, 4),
+            "y": round(lm.y, 4),
+            "z": round(lm.z, 4),
+            "score": round(lm.visibility if lm.visibility is not None else 0.0, 3),
+            "presence": round(lm.presence if lm.presence is not None else 0.0, 3)
         }
-
     return out
 
 def update_reference(world_landmarks):
     global reference_gt, reference_buffer
-    pts = [(p.x, p.y, p.z) for p in world_landmarks.landmark]
+    pts = [(lm.x, lm.y, lm.z) for lm in world_landmarks]
     reference_buffer.append(pts)
 
     if len(reference_buffer) >= CONFIG["REFERENCE_FRAMES"]:
@@ -225,6 +234,7 @@ def tracking_loop():
 
     log("Tracking loop started")
     frame_interval = 1.0 / max(CONFIG["TARGET_FPS"], 1)
+    start_time_ms = int(time.time() * 1000)
 
     while tracking_active:
         t0 = time.time()
@@ -238,19 +248,21 @@ def tracking_loop():
 
             frame = cv2.flip(frame, 1)
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            result = pose.process(rgb)
+
+            timestamp_ms = int(time.time() * 1000) - start_time_ms
+            mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
+            result = pose.detect_for_video(mp_image, timestamp_ms)
 
             joints = {}
             pck = None
 
-            if result.pose_landmarks and result.pose_world_landmarks:
-                joints = map_full_body(result.pose_world_landmarks)
-
-                world_lm = result.pose_world_landmarks.landmark
-                pred_points = [(p.x, p.y, p.z) for p in world_lm]
+            if result.pose_world_landmarks:
+                world_lms = result.pose_world_landmarks[0]
+                joints = map_full_body(world_lms)
+                pred_points = [(lm.x, lm.y, lm.z) for lm in world_lms]
 
                 if reference_recording:
-                    update_reference(result.pose_world_landmarks)
+                    update_reference(world_lms)
 
                 if reference_gt:
                     pck = compute_pck(pred_points, reference_gt)
@@ -262,13 +274,13 @@ def tracking_loop():
                 continue
 
             jpeg_bytes = jpeg.tobytes()
-            timestamp_ms = int(time.time() * 1000) & 0xFFFFFFFF
+            udp_ts = int(time.time() * 1000) & 0xFFFFFFFF
             frame_counter = (frame_counter + 1) & 0xFFFFFFFF
 
-            send_udp_jpeg_chunks(jpeg_bytes, frame_counter, timestamp_ms)
+            send_udp_jpeg_chunks(jpeg_bytes, frame_counter, udp_ts)
 
             meta = {
-                "timestamp_ms": timestamp_ms,
+                "timestamp_ms": udp_ts,
                 "frame_id": frame_counter,
                 "joints": joints,
                 "pck": pck,
@@ -282,7 +294,7 @@ def tracking_loop():
                 cv2.imshow("Pose Tracking DEBUG", frame)
                 if cv2.waitKey(1) & 0xFF == 27:
                     break
-   
+
         except Exception as e:
             log("Loop error: " + str(e))
             time.sleep(0.1)

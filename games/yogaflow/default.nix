@@ -57,7 +57,8 @@ stdenv.mkDerivation {
     chmod +x $out/opt/yogaflow/Yoga_Flow.x86_64
 
     makeWrapper $out/opt/yogaflow/Yoga_Flow.x86_64 $out/bin/tomoro-yogaflow \
-      --chdir $out/opt/yogaflow
+      --chdir $out/opt/yogaflow \
+      --set HOME /tmp
 
     runHook postInstall
   '';

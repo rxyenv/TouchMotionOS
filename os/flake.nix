@@ -29,21 +29,13 @@
         appliance-a = mkAppliance "a";
         appliance-b = mkAppliance "b";
 
-        vm = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [ ./hosts/vm ];
-        };
-
         iso = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit self; };
           modules = [ ./hosts/iso ];
         };
 
-        live = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [ ./hosts/vm/live ];
-        };
+
       };
     };
 }

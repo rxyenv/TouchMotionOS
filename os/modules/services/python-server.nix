@@ -39,6 +39,8 @@ in
     systemd.services.tomoro-server-setup = {
       description = "Tomoro Python server — system-wide package install";
       wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
       before = [ "tomoro-server.service" ];
       serviceConfig = {
         Type = "oneshot";
@@ -69,7 +71,17 @@ in
         User = "tomoro";
         Restart = "on-failure";
         RestartSec = "5s";
-        Environment = "PYTHONPATH=${sitePackages}";
+        Environment = [
+          "PYTHONPATH=${sitePackages}"
+          "LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [
+            pkgs.stdenv.cc.cc
+            pkgs.zlib
+            pkgs.libxcb
+            pkgs.libGL
+            pkgs.glib
+            pkgs.libgcc
+          ]}"
+        ];
       };
     };
   };
