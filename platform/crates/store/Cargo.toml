@@ -1,0 +1,19 @@
+[package]
+name = "tomoro-store"
+version = "0.1.0"
+edition = "2021"
+description = "IPC daemon: download/install/launch store games via Unix socket."
+
+[[bin]]
+name = "tomoro-store"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+reqwest = { version = "0.12", features = ["stream", "rustls-tls", "json"], default-features = false }
+tar = "0.4"
+flate2 = "1"
+futures-util = "0.3"
+bytes = "1"

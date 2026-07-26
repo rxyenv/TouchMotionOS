@@ -1,14 +1,14 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../l10n/app_localizations.dart';
 import '../session.dart';
 import '../widgets/power_button.dart';
+import 'library_screen.dart';
 import 'physio_screen.dart';
 import 'settings_screen.dart';
+import 'store_screen.dart';
 
 /// Tomoro home screen, styled after the onboarding slides: white canvas,
 /// hand-drawn illustration accents, soft lavender fills and bold dark
@@ -20,96 +20,13 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _Game {
-  const _Game({
-    required this.id,
-    required this.title,
-    required this.tagline,
-    required this.accent,
-    required this.artBuilder,
-  });
-
-  /// Binary name looked up on PATH when the card is tapped.
-  final String id;
-  final String title;
-  final String Function(AppLocalizations) tagline;
-  final Color accent;
-  final Widget Function(double Function(double) sx, double Function(double) sy)
-  artBuilder;
-}
-
 class _HomeScreenState extends State<HomeScreen> {
   static const _ink = Color(0xFF1C1C1E);
-  static const _lavender = Color(0xFFF2E7FA);
-  static const _lavenderDeep = Color(0xFFE3CDF6);
 
-  /// Screenshot in a floating rounded frame, so busy or mostly-white game
-  /// captures read as intentional art on the card's gradient backdrop.
-  static Widget _framedShot(
-    String asset,
-    double Function(double) sx,
-    double Function(double) sy,
-  ) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(sx(44), sy(44), sx(44), sy(8)),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(sy(20)),
-          boxShadow: [
-            BoxShadow(
-              color: _ink.withValues(alpha: 0.18),
-              blurRadius: 28,
-              offset: const Offset(0, 12),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(sy(20)),
-          child: Image.asset(
-            asset,
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
-          ),
-        ),
-      ),
-    );
-  }
-
-  static final _games = <_Game>[
-    _Game(
-      id: 'tomoro-skyhopper',
-      title: 'Sky Hopper',
-      tagline: (l10n) => l10n.taglineSkyHopper,
-      accent: _lavender,
-      artBuilder: (sx, sy) => _framedShot('assets/slide15/slide15.png', sx, sy),
-    ),
-    _Game(
-      id: 'tomoro-catnap',
-      title: 'Cat Nap Chase',
-      tagline: (l10n) => l10n.taglineCatNap,
-      accent: _lavenderDeep,
-      artBuilder: (sx, sy) => Center(
-        child: SvgPicture.asset(
-          'assets/slide1/Cat.svg',
-          width: sx(300),
-          fit: BoxFit.contain,
-        ),
-      ),
-    ),
-    _Game(
-      id: 'tomoro-yogaflow',
-      title: 'YogaFlow',
-      tagline: (l10n) => l10n.taglineYogaFlow,
-      accent: _lavender,
-      artBuilder: (sx, sy) =>
-          _framedShot('assets/yogaflow/thumb.png', sx, sy),
-    ),
-  ];
+  int _tabIndex = 0; // 0 = Library, 1 = Store
 
   late Timer _clockTimer;
   DateTime _now = DateTime.now();
-  String? _launching;
 
   @override
   void initState() {
@@ -144,34 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_now.hour < 12) return l10n.goodMorning;
     if (_now.hour < 17) return l10n.goodAfternoon;
     return l10n.goodEvening;
-  }
-
-  Future<void> _launchGame(_Game game) async {
-    if (_launching != null) return;
-    setState(() => _launching = game.id);
-    try {
-      await Process.start('steam-run', [game.id], mode: ProcessStartMode.detached);
-    } on ProcessException {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: _ink,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            width: 480,
-            content: Text(
-              AppLocalizations.of(context)!.notInstalled(game.title),
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-          ),
-        );
-      }
-    } finally {
-      if (mounted) setState(() => _launching = null);
-    }
   }
 
   @override
@@ -298,60 +187,60 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            // Library section.
+            // Tab bar: Library | Store
             Positioned(
-              top: sy(300),
+              top: sy(272),
               left: sx(96),
-              child: Text(
-                l10n.library,
-                style: TextStyle(
-                  color: _ink,
-                  fontSize: sy(44),
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: -0.5,
-                ),
-              ),
-            ),
-
-            Positioned(
-              top: sy(392),
-              left: sx(96),
-              right: sx(96),
-              height: sy(520),
               child: Row(
                 children: [
-                  for (final game in _games) ...[
-                    Expanded(child: _gameCard(game, l10n, sx, sy)),
-                    if (game != _games.last) SizedBox(width: sx(48)),
-                  ],
+                  _tab(l10n.library, 0, sy),
+                  SizedBox(width: sx(8)),
+                  _tab('Store', 1, sy),
                 ],
               ),
             ),
 
-            // Footer hint.
+            // Tab content
             Positioned(
+              top: sy(352),
+              left: 0,
+              right: 0,
               bottom: sy(40),
-              left: sx(96),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.touch_app_outlined,
-                    color: _ink.withValues(alpha: 0.35),
-                    size: sy(24),
-                  ),
-                  SizedBox(width: sx(12)),
-                  Text(
-                    l10n.tapCardToPlay,
-                    style: TextStyle(
-                      color: _ink.withValues(alpha: 0.35),
-                      fontSize: sy(20),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
+              child: _tabIndex == 0
+                  ? const LibraryScreen()
+                  : const StoreScreen(),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _tab(String label, int index, double Function(double) sy) {
+    final active = _tabIndex == index;
+    return GestureDetector(
+      onTap: () => setState(() => _tabIndex = index),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        curve: Curves.easeOut,
+        padding: EdgeInsets.symmetric(
+          horizontal: sy(28),
+          vertical: sy(10),
+        ),
+        decoration: BoxDecoration(
+          color: active ? _ink : Colors.transparent,
+          borderRadius: BorderRadius.circular(sy(12)),
+          border: active
+              ? null
+              : Border.all(color: _ink.withValues(alpha: 0.15), width: 1.2),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: active ? Colors.white : _ink.withValues(alpha: 0.55),
+            fontSize: sy(20),
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
     );
@@ -392,121 +281,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _gameCard(
-    _Game game,
-    AppLocalizations l10n,
-    double Function(double) sx,
-    double Function(double) sy,
-  ) {
-    final launching = _launching == game.id;
-    return AnimatedScale(
-      scale: launching ? 0.97 : 1.0,
-      duration: const Duration(milliseconds: 150),
-      curve: Curves.easeOut,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(sy(28)),
-          boxShadow: [
-            BoxShadow(
-              color: _ink.withValues(alpha: 0.08),
-              blurRadius: 24,
-              offset: const Offset(0, 10),
-            ),
-          ],
-        ),
-        child: Material(
-          color: Colors.white,
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(sy(28)),
-            side: BorderSide(color: _ink.withValues(alpha: 0.1), width: 1.3),
-          ),
-          child: InkWell(
-            autofocus: game == _games.first,
-            focusColor: _lavenderDeep.withValues(alpha: 0.45),
-            onTap: () => _launchGame(game),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [game.accent, _lavenderDeep],
-                      ),
-                    ),
-                    child: game.artBuilder(sx, sy),
-                  ),
-                ),
-                Container(
-                  color: Colors.white,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: sx(36),
-                    vertical: sy(24),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              game.title,
-                              style: TextStyle(
-                                color: _ink,
-                                fontSize: sy(32),
-                                fontWeight: FontWeight.w800,
-                                letterSpacing: -0.5,
-                              ),
-                            ),
-                            SizedBox(height: sy(6)),
-                            Text(
-                              game.tagline(l10n),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: _ink.withValues(alpha: 0.55),
-                                fontSize: sy(19),
-                                fontWeight: FontWeight.w500,
-                                height: 1.25,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: sx(24)),
-                      launching
-                          ? SizedBox(
-                              width: sy(36),
-                              height: sy(36),
-                              child: const CircularProgressIndicator(
-                                strokeWidth: 3,
-                                color: _ink,
-                              ),
-                            )
-                          : Container(
-                              width: sy(56),
-                              height: sy(56),
-                              decoration: const BoxDecoration(
-                                color: _ink,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                Icons.play_arrow_rounded,
-                                color: Colors.white,
-                                size: sy(36),
-                              ),
-                            ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }

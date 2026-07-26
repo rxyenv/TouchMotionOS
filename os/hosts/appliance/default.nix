@@ -13,6 +13,7 @@
     ../../modules/system/debug-ssh.nix
     ../../modules/system/ota-update.nix
     ../../modules/services/python-server.nix
+    ../../modules/services/tomoro-store.nix
   ];
 
   services.tomoro-server = {
