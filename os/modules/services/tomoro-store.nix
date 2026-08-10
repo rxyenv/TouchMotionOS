@@ -14,6 +14,8 @@ in
       TOMORO_BACKEND = "http://localhost:8000";
     };
 
+    path = [ pkgs.steam-run ];
+
     serviceConfig = {
       ExecStart = "${platform}/bin/tomoro-store";
       User = "tomoro";
