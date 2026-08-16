@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 /// Tappable wrapper that participates in focus traversal and paints a
-/// visible ring when focused, so gamepad/keyboard users can see where they
-/// are. Use instead of bare [GestureDetector] for anything interactive.
+/// visible ring when focused, so controller users can see where they are.
+/// Use it for custom controller-focusable actions.
 class FocusableTap extends StatefulWidget {
   const FocusableTap({
     super.key,

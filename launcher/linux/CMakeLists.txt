@@ -53,6 +53,7 @@ add_subdirectory(${FLUTTER_MANAGED_DIR})
 # System-level dependencies.
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK REQUIRED IMPORTED_TARGET gtk+-3.0)
+pkg_check_modules(GLIB REQUIRED IMPORTED_TARGET glib-2.0)
 
 # Application build; see runner/CMakeLists.txt.
 add_subdirectory("runner")
@@ -73,6 +74,13 @@ set_target_properties(${BINARY_NAME}
 # Generated plugin build rules, which manage building the plugins and adding
 # them to the application.
 include(flutter/generated_plugins.cmake)
+
+# gamepads_linux links GLib by its bare library name. Link the CMake pkg-config
+# target as well so Nix supplies the correct store path to the linker.
+if(TARGET gamepads_linux_plugin)
+  target_link_directories(gamepads_linux_plugin PRIVATE ${GLIB_LIBRARY_DIRS})
+  target_link_libraries(gamepads_linux_plugin PRIVATE PkgConfig::GLIB)
+endif()
 
 
 # === Installation ===

@@ -55,17 +55,19 @@ class _StoreScreenState extends State<StoreScreen> {
     try {
       final client = HttpClient();
       client.connectionTimeout = const Duration(seconds: 8);
-      final request =
-          await client.getUrl(Uri.parse('$_backendUrl/catalog'));
+      final request = await client.getUrl(Uri.parse('$_backendUrl/catalog'));
       final response = await request.close();
       final body = await response.transform(utf8.decoder).join();
       client.close();
-      if (response.statusCode != 200) throw Exception('HTTP ${response.statusCode}');
+      if (response.statusCode != 200)
+        throw Exception('HTTP ${response.statusCode}');
       final data = jsonDecode(body) as Map<String, dynamic>;
       if (mounted) {
         setState(() {
           _catalog = List<Map<String, dynamic>>.from(
-            (data['games'] as List? ?? []).map((g) => Map<String, dynamic>.from(g as Map)),
+            (data['games'] as List? ?? []).map(
+              (g) => Map<String, dynamic>.from(g as Map),
+            ),
           );
           _loading = false;
         });
@@ -176,9 +178,7 @@ class _StoreScreenState extends State<StoreScreen> {
       child: Wrap(
         spacing: sx(48),
         runSpacing: sy(48),
-        children: [
-          for (final g in _catalog) _storeCard(g, sx, sy),
-        ],
+        children: [for (final g in _catalog) _storeCard(g, sx, sy)],
       ),
     );
   }
@@ -319,10 +319,7 @@ class _StoreScreenState extends State<StoreScreen> {
   ) {
     if (isInstalled) {
       return Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: sy(16),
-          vertical: sy(10),
-        ),
+        padding: EdgeInsets.symmetric(horizontal: sy(16), vertical: sy(10)),
         decoration: BoxDecoration(
           color: _accentGreen.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(sy(12)),
@@ -370,23 +367,25 @@ class _StoreScreenState extends State<StoreScreen> {
       );
     }
 
-    return GestureDetector(
-      onTap: () => _install(id),
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: sy(20),
-          vertical: sy(10),
-        ),
-        decoration: BoxDecoration(
-          color: _ink,
-          borderRadius: BorderRadius.circular(sy(12)),
-        ),
-        child: Text(
-          'Get',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: sy(17),
-            fontWeight: FontWeight.w700,
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(sy(12)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(sy(12)),
+        onTap: () => _install(id),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: sy(20), vertical: sy(10)),
+          decoration: BoxDecoration(
+            color: _ink,
+            borderRadius: BorderRadius.circular(sy(12)),
+          ),
+          child: Text(
+            'Get',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: sy(17),
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ),

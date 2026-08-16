@@ -14,12 +14,15 @@
     ../../modules/system/ota-update.nix
     ../../modules/services/python-server.nix
     ../../modules/services/tomoro-store.nix
+    ../../modules/services/tomoro-remote-setup.nix
   ];
 
   services.tomoro-server = {
     enable = true;
     dataDir = "/data";
   };
+
+  services.tomoro-remote-setup.enable = true;
 
   # Filesystems by label — both disko and the legacy installer script format
   # the disk with these labels, so this config works on any target disk

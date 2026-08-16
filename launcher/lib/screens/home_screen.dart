@@ -218,28 +218,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _tab(String label, int index, double Function(double) sy) {
     final active = _tabIndex == index;
-    return GestureDetector(
-      onTap: () => setState(() => _tabIndex = index),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 180),
-        curve: Curves.easeOut,
-        padding: EdgeInsets.symmetric(
-          horizontal: sy(28),
-          vertical: sy(10),
-        ),
-        decoration: BoxDecoration(
-          color: active ? _ink : Colors.transparent,
-          borderRadius: BorderRadius.circular(sy(12)),
-          border: active
-              ? null
-              : Border.all(color: _ink.withValues(alpha: 0.15), width: 1.2),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: active ? Colors.white : _ink.withValues(alpha: 0.55),
-            fontSize: sy(20),
-            fontWeight: FontWeight.w700,
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(sy(12)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(sy(12)),
+        onTap: () => setState(() => _tabIndex = index),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          curve: Curves.easeOut,
+          padding: EdgeInsets.symmetric(horizontal: sy(28), vertical: sy(10)),
+          decoration: BoxDecoration(
+            color: active ? _ink : Colors.transparent,
+            borderRadius: BorderRadius.circular(sy(12)),
+            border: active
+                ? null
+                : Border.all(color: _ink.withValues(alpha: 0.15), width: 1.2),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: active ? Colors.white : _ink.withValues(alpha: 0.55),
+              fontSize: sy(20),
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ),
@@ -280,5 +282,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
 }

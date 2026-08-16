@@ -1,10 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'gamepad_navigator.dart';
 import 'l10n/app_localizations.dart';
 import 'onboarding_state.dart';
+import 'remote_gate.dart';
+import 'screens/settings_screen.dart';
+import 'screens/language_screen.dart';
+import 'screens/wifi_onboarding_screen.dart';
 import 'session.dart';
 import 'widgets/power_button.dart';
-import 'screens/organisation_screen.dart';
 import 'screens/slide1.dart';
 import 'screens/slide2.dart';
 import 'screens/slide3.dart';
@@ -27,6 +33,9 @@ final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  // This launcher is controller-only. Gamepad input comes through the native
+  // plugin, while every physical-keyboard event is consumed here.
+  HardwareKeyboard.instance.addHandler((_) => true);
   GamepadNavigator.start(navigatorKey);
   runApp(const MyApp());
 }
@@ -97,10 +106,7 @@ class MyApp extends StatelessWidget {
         fontFamilyFallback: _fontFallback,
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
-        builders: {
-          TargetPlatform.linux: _FadeSlideTransitionsBuilder(),
-          TargetPlatform.android: _FadeSlideTransitionsBuilder(),
-        },
+        builders: {TargetPlatform.linux: _FadeSlideTransitionsBuilder()},
       ),
     );
   }
@@ -116,11 +122,32 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         theme: _theme(),
-        home: OnboardingState.isDone
-            ? const OrganisationScreen()
-            : const OnboardingScreen(),
+        home: const _StartupGate(),
       ),
     );
+  }
+}
+
+class _StartupGate extends StatefulWidget {
+  const _StartupGate();
+  @override
+  State<_StartupGate> createState() => _StartupGateState();
+}
+
+class _StartupGateState extends State<_StartupGate> {
+  bool _setupComplete = OnboardingState.initialSetupDone;
+  @override
+  Widget build(BuildContext context) {
+    if (!_setupComplete) {
+      return SettingsScreen(
+        initialSetup: true,
+        onSetupComplete: () {
+          OnboardingState.markInitialSetupDone();
+          setState(() => _setupComplete = true);
+        },
+      );
+    }
+    return const RemoteGate(onboarding: OnboardingScreen());
   }
 }
 
@@ -132,13 +159,39 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  static const _pageCount = 16;
+  static const _pageCount = 18;
 
   final _controller = PageController();
   int _page = 0;
+  StreamSubscription<RemoteAction>? _remoteSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    // Slides are a pager: directional input and Select advance predictably,
+    // even when a decorative SVG is the current page and has no focus target.
+    // On the final slide, Select remains available to activate Continue.
+    _remoteSubscription = RemoteInput.actions.listen((action) {
+      if (_page >= 2 &&
+          (action == RemoteAction.right || action == RemoteAction.select) &&
+          _page < _pageCount - 1) {
+        _controller.nextPage(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      } else if ((action == RemoteAction.left || action == RemoteAction.back) &&
+          _page > 0) {
+        _controller.previousPage(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
 
   @override
   void dispose() {
+    _remoteSubscription?.cancel();
     _controller.dispose();
     super.dispose();
   }
@@ -151,8 +204,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           PageView(
             controller: _controller,
+            physics: const NeverScrollableScrollPhysics(),
             onPageChanged: (page) => setState(() => _page = page),
-            children: const [
+            children: [
+              LanguageScreen(
+                onContinue: () => _controller.nextPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                ),
+              ),
+              WifiOnboardingScreen(
+                onContinue: () => _controller.nextPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                ),
+              ),
               Slide1Screen(),
               Slide2Screen(),
               Slide3Screen(),

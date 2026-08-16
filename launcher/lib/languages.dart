@@ -10,9 +10,9 @@ class AppLanguage {
 
 const appLanguages = <AppLanguage>[
   AppLanguage('en', 'English', 'English'),
-  AppLanguage('te', 'Telugu', 'తెలుగు'),
   AppLanguage('hi', 'Hindi', 'हिन्दी'),
+  AppLanguage('te', 'Telugu', 'తెలుగు'),
   AppLanguage('ta', 'Tamil', 'தமிழ்'),
-  AppLanguage('ml', 'Malayalam', 'മലയാളം'),
   AppLanguage('kn', 'Kannada', 'ಕನ್ನಡ'),
+  AppLanguage('ml', 'Malayalam', 'മലയാളം'),
 ];

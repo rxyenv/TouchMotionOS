@@ -10,7 +10,9 @@ import 'patient_profile_screen.dart';
 /// Language selection. Picking a card sets [Session.locale], which switches
 /// the whole app's language immediately; Continue moves on to the profile.
 class LanguageScreen extends StatefulWidget {
-  const LanguageScreen({super.key});
+  const LanguageScreen({super.key, this.onContinue});
+
+  final VoidCallback? onContinue;
 
   @override
   State<LanguageScreen> createState() => _LanguageScreenState();
@@ -127,11 +129,13 @@ class _LanguageScreenState extends State<LanguageScreen> {
                   SizedBox(height: sy(72)),
                   FocusableTap(
                     borderRadius: BorderRadius.circular(sy(40)),
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const PatientProfileScreen(),
-                      ),
-                    ),
+                    onTap:
+                        widget.onContinue ??
+                        () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const PatientProfileScreen(),
+                          ),
+                        ),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                         horizontal: sx(72),

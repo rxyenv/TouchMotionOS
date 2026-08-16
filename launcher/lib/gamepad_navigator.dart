@@ -3,6 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gamepads/gamepads.dart';
 
+enum RemoteAction { up, down, left, right, select, back }
+
+/// The single normalized action stream used by controller input. Media, camera
+/// and power keys deliberately have no mapping.
+class RemoteInput {
+  static final _controller = StreamController<RemoteAction>.broadcast();
+  static Stream<RemoteAction> get actions => _controller.stream;
+  static void emit(RemoteAction action) => _controller.add(action);
+}
+
 /// Translates gamepad input into Flutter focus traversal so the whole
 /// launcher is navigable with an Xbox-style controller:
 ///
@@ -40,14 +50,13 @@ class GamepadNavigator {
   }
 
   void _listen() {
-    // Paint focus rings even though the device is touch-first.
+    // Always paint focus rings for keyboard and controller navigation.
     FocusManager.instance.highlightStrategy =
         FocusHighlightStrategy.alwaysTraditional;
     _sub ??= Gamepads.events.listen(
       _onEvent,
       onError: (Object _) {
-        // No gamepad support / device disappeared: navigation by touch
-        // still works, so swallow and keep the launcher alive.
+        // No gamepad support / device disappeared: keep the launcher alive.
       },
     );
   }
@@ -56,9 +65,9 @@ class GamepadNavigator {
     if (event.type == KeyType.button) {
       if (event.value < _threshold) return; // Ignore releases.
       if (_activateButtons.contains(event.key)) {
-        _activate();
+        _dispatch(RemoteAction.select);
       } else if (_backButtons.contains(event.key)) {
-        _back();
+        _dispatch(RemoteAction.back);
       }
       return;
     }
@@ -77,13 +86,27 @@ class GamepadNavigator {
     if (direction == 0) return;
 
     if (_horizontalAxes.contains(event.key)) {
-      _moveFocus(
-        direction < 0 ? TraversalDirection.left : TraversalDirection.right,
-      );
+      _dispatch(direction < 0 ? RemoteAction.left : RemoteAction.right);
     } else if (_verticalAxes.contains(event.key)) {
-      _moveFocus(
-        direction < 0 ? TraversalDirection.up : TraversalDirection.down,
-      );
+      _dispatch(direction < 0 ? RemoteAction.up : RemoteAction.down);
+    }
+  }
+
+  void _dispatch(RemoteAction action) {
+    RemoteInput.emit(action);
+    switch (action) {
+      case RemoteAction.up:
+        _moveFocus(TraversalDirection.up);
+      case RemoteAction.down:
+        _moveFocus(TraversalDirection.down);
+      case RemoteAction.left:
+        _moveFocus(TraversalDirection.left);
+      case RemoteAction.right:
+        _moveFocus(TraversalDirection.right);
+      case RemoteAction.select:
+        _activate();
+      case RemoteAction.back:
+        _back();
     }
   }
 

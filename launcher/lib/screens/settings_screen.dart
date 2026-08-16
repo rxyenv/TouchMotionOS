@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
 import '../languages.dart';
+import '../onboarding_state.dart';
 import '../session.dart';
-import '../widgets/onscreen_keyboard.dart';
+import '../remote_service.dart';
 
 // ---------------------------------------------------------------------------
 // Timezone picker dialog
@@ -27,6 +28,7 @@ class _TzPickerDialogState extends State<_TzPickerDialog> {
 
   List<String>? _allZones;
   String _query = '';
+  final _queryController = TextEditingController();
   bool _loading = true;
   String? _applying;
   String? _error;
@@ -37,6 +39,12 @@ class _TzPickerDialogState extends State<_TzPickerDialog> {
     _load();
   }
 
+  @override
+  void dispose() {
+    _queryController.dispose();
+    super.dispose();
+  }
+
   Future<void> _load() async {
     try {
       final result = await Process.run('timedatectl', ['list-timezones']);
@@ -45,9 +53,17 @@ class _TzPickerDialogState extends State<_TzPickerDialog> {
           .map((s) => s.trim())
           .where((s) => s.isNotEmpty)
           .toList();
-      if (mounted) setState(() { _allZones = zones; _loading = false; });
+      if (mounted)
+        setState(() {
+          _allZones = zones;
+          _loading = false;
+        });
     } on Exception {
-      if (mounted) setState(() { _allZones = []; _loading = false; });
+      if (mounted)
+        setState(() {
+          _allZones = [];
+          _loading = false;
+        });
     }
   }
 
@@ -66,7 +82,9 @@ class _TzPickerDialogState extends State<_TzPickerDialog> {
 
     return Dialog(
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(sy(28))),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(sy(28)),
+      ),
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: sx(900), maxHeight: sy(800)),
         child: Padding(
@@ -76,56 +94,52 @@ class _TzPickerDialogState extends State<_TzPickerDialog> {
             children: [
               Text(
                 AppLocalizations.of(context)!.selectTimeZone,
-                style: TextStyle(color: _ink, fontSize: sy(36), fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  color: _ink,
+                  fontSize: sy(36),
+                  fontWeight: FontWeight.w800,
+                ),
               ),
               SizedBox(height: sy(20)),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: sx(24), vertical: sy(12)),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF4F4F6),
-                  borderRadius: BorderRadius.circular(sy(14)),
-                  border: Border.all(color: _ink.withValues(alpha: 0.15)),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.search_rounded, color: _ink.withValues(alpha: 0.45), size: sy(28)),
-                    SizedBox(width: sx(16)),
-                    Expanded(
-                      child: Text(
-                        _query.isEmpty
-                            ? AppLocalizations.of(context)!.searchTimeZones
-                            : _query,
-                        style: TextStyle(
-                          color: _query.isEmpty ? _ink.withValues(alpha: 0.35) : _ink,
-                          fontSize: sy(24),
+              TextField(
+                controller: _queryController,
+                autofocus: true,
+                onChanged: (value) => setState(() => _query = value),
+                decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context)!.searchTimeZones,
+                  prefixIcon: const Icon(Icons.search_rounded),
+                  suffixIcon: _query.isEmpty
+                      ? null
+                      : IconButton(
+                          tooltip: 'Clear search',
+                          onPressed: () {
+                            _queryController.clear();
+                            setState(() => _query = '');
+                          },
+                          icon: const Icon(Icons.close_rounded),
                         ),
-                      ),
-                    ),
-                    if (_query.isNotEmpty)
-                      GestureDetector(
-                        onTap: () => setState(() => _query = ''),
-                        child: Icon(Icons.close_rounded, size: sy(26), color: _ink.withValues(alpha: 0.45)),
-                      ),
-                  ],
+                  filled: true,
+                  fillColor: const Color(0xFFF4F4F6),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(sy(14)),
+                    borderSide: BorderSide(color: _ink.withValues(alpha: 0.15)),
+                  ),
                 ),
-              ),
-              SizedBox(height: sy(8)),
-              OnscreenKeyboard(
-                onKey: (k) => setState(() => _query += k),
-                onBackspace: () => setState(() {
-                  if (_query.isNotEmpty) _query = _query.substring(0, _query.length - 1);
-                }),
-                onSubmit: () {},
               ),
               SizedBox(height: sy(16)),
               if (_error != null)
                 Padding(
                   padding: EdgeInsets.only(bottom: sy(8)),
-                  child: Text(_error!, style: TextStyle(color: Colors.redAccent, fontSize: sy(20))),
+                  child: Text(
+                    _error!,
+                    style: TextStyle(color: Colors.redAccent, fontSize: sy(20)),
+                  ),
                 ),
               Expanded(
                 child: _loading
-                    ? const Center(child: CircularProgressIndicator(color: _ink))
+                    ? const Center(
+                        child: CircularProgressIndicator(color: _ink),
+                      )
                     : ListView.builder(
                         itemCount: _filtered.length,
                         itemBuilder: (_, i) {
@@ -137,42 +151,72 @@ class _TzPickerDialogState extends State<_TzPickerDialog> {
                             onTap: applying || isCurrent
                                 ? null
                                 : () async {
-                                    setState(() { _applying = tz; _error = null; });
+                                    setState(() {
+                                      _applying = tz;
+                                      _error = null;
+                                    });
                                     final ok = await Session.setTimeZone(tz);
                                     if (!mounted) return;
                                     if (ok) {
                                       // ignore: use_build_context_synchronously
                                       Navigator.of(context).pop();
                                     } else {
-                                      setState(() { _applying = null; _error = 'Failed to set timezone'; });
+                                      setState(() {
+                                        _applying = null;
+                                        _error = 'Failed to set timezone';
+                                      });
                                     }
                                   },
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: sx(16), vertical: sy(14)),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: sx(16),
+                                vertical: sy(14),
+                              ),
                               child: Row(
                                 children: [
                                   Expanded(
                                     child: Text(
                                       tz,
                                       style: TextStyle(
-                                        color: isCurrent ? const Color(0xFF7C3AED) : _ink,
+                                        color: isCurrent
+                                            ? const Color(0xFF7C3AED)
+                                            : _ink,
                                         fontSize: sy(24),
-                                        fontWeight: isCurrent ? FontWeight.w700 : FontWeight.w500,
+                                        fontWeight: isCurrent
+                                            ? FontWeight.w700
+                                            : FontWeight.w500,
                                       ),
                                     ),
                                   ),
                                   if (applying)
-                                    SizedBox(width: sy(24), height: sy(24),
-                                      child: const CircularProgressIndicator(strokeWidth: 3, color: _ink))
+                                    SizedBox(
+                                      width: sy(24),
+                                      height: sy(24),
+                                      child: const CircularProgressIndicator(
+                                        strokeWidth: 3,
+                                        color: _ink,
+                                      ),
+                                    )
                                   else if (isCurrent)
                                     Container(
-                                      padding: EdgeInsets.symmetric(horizontal: sx(16), vertical: sy(6)),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: sx(16),
+                                        vertical: sy(6),
+                                      ),
                                       decoration: BoxDecoration(
                                         color: _lavender,
-                                        borderRadius: BorderRadius.circular(sy(20)),
+                                        borderRadius: BorderRadius.circular(
+                                          sy(20),
+                                        ),
                                       ),
-                                      child: Text('Current',
-                                        style: TextStyle(color: const Color(0xFF7C3AED), fontSize: sy(20), fontWeight: FontWeight.w700)),
+                                      child: Text(
+                                        'Current',
+                                        style: TextStyle(
+                                          color: const Color(0xFF7C3AED),
+                                          fontSize: sy(20),
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
                                     ),
                                 ],
                               ),
@@ -188,7 +232,10 @@ class _TzPickerDialogState extends State<_TzPickerDialog> {
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text(
                     AppLocalizations.of(context)!.cancel,
-                    style: TextStyle(color: _ink.withValues(alpha: 0.55), fontSize: sy(22)),
+                    style: TextStyle(
+                      color: _ink.withValues(alpha: 0.55),
+                      fontSize: sy(22),
+                    ),
                   ),
                 ),
               ),
@@ -204,7 +251,14 @@ class _TzPickerDialogState extends State<_TzPickerDialog> {
 /// headlines, lavender accents. Currently hosts the Network section, which
 /// polls the `tomoro-net` Rust binary for ethernet/wifi state.
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  const SettingsScreen({
+    super.key,
+    this.initialSetup = false,
+    this.onSetupComplete,
+  });
+
+  final bool initialSetup;
+  final VoidCallback? onSetupComplete;
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -281,6 +335,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _scanning = false;
   String? _connectingSsid;
   String? _wifiError;
+  RemoteStatus? _remoteStatus;
 
   @override
   void initState() {
@@ -289,7 +344,67 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Session.use24h.addListener(_onTimeSettingChange);
     Session.timeZone.addListener(_onTimeSettingChange);
     _refresh();
+    if (!widget.initialSetup) _refreshRemote();
     _pollTimer = Timer.periodic(const Duration(seconds: 3), (_) => _refresh());
+  }
+
+  Future<void> _refreshRemote() async {
+    final status = await RemoteService.status();
+    if (mounted) setState(() => _remoteStatus = status);
+  }
+
+  Future<void> _replaceRemote() async {
+    final devices = await RemoteService.scan();
+    if (!mounted) return;
+    if (devices == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Bluetooth scanning is unavailable.')),
+      );
+      return;
+    }
+    if (devices.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'No nearby remotes found. Put it in pairing mode and try again.',
+          ),
+        ),
+      );
+      return;
+    }
+    final device = await showDialog<RemoteDevice>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Select remote'),
+        content: SizedBox(
+          width: 420,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              for (final candidate in devices)
+                ListTile(
+                  title: Text(candidate.name),
+                  subtitle: Text(candidate.mac),
+                  onTap: () => Navigator.pop(dialogContext, candidate),
+                ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+    if (device == null) return;
+    final error = await RemoteService.pair(device.mac);
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(error == null ? 'Remote paired.' : error)),
+    );
+    _refreshRemote();
   }
 
   void _onTimeSettingChange() => setState(() {});
@@ -399,7 +514,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<String?> _promptPassword(String ssid) {
-    var value = '';
+    final controller = TextEditingController();
     var obscure = true;
     return showDialog<String>(
       context: context,
@@ -426,56 +541,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 14,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF4F4F6),
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: _ink.withValues(alpha: 0.15)),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            value.isEmpty
-                                ? AppLocalizations.of(context)!.enterPassword
-                                : obscure
-                                ? '•' * value.length
-                                : value,
-                            style: TextStyle(
-                              color: value.isEmpty
-                                  ? _ink.withValues(alpha: 0.35)
-                                  : _ink,
-                              fontSize: 24,
-                              letterSpacing: obscure ? 3 : 0,
-                            ),
-                          ),
+                  TextField(
+                    controller: controller,
+                    autofocus: true,
+                    obscureText: obscure,
+                    onSubmitted: (value) => Navigator.of(context).pop(value),
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.enterPassword,
+                      filled: true,
+                      fillColor: const Color(0xFFF4F4F6),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(14),
+                        borderSide: BorderSide(
+                          color: _ink.withValues(alpha: 0.15),
                         ),
-                        IconButton(
-                          onPressed: () =>
-                              setDialogState(() => obscure = !obscure),
-                          icon: Icon(
-                            obscure
-                                ? Icons.visibility_rounded
-                                : Icons.visibility_off_rounded,
-                            color: _ink.withValues(alpha: 0.55),
-                          ),
+                      ),
+                      suffixIcon: IconButton(
+                        tooltip: obscure ? 'Show password' : 'Hide password',
+                        onPressed: () =>
+                            setDialogState(() => obscure = !obscure),
+                        icon: Icon(
+                          obscure
+                              ? Icons.visibility_rounded
+                              : Icons.visibility_off_rounded,
+                          color: _ink.withValues(alpha: 0.55),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  OnscreenKeyboard(
-                    onKey: (k) => setDialogState(() => value += k),
-                    onBackspace: () => setDialogState(() {
-                      if (value.isNotEmpty) {
-                        value = value.substring(0, value.length - 1);
-                      }
-                    }),
-                    onSubmit: () => Navigator.of(context).pop(value),
                   ),
                   const SizedBox(height: 12),
                   Align(
@@ -497,7 +589,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
       ),
-    );
+    ).whenComplete(controller.dispose);
   }
 
   @override
@@ -519,14 +611,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             Row(
               children: [
-                IconButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  iconSize: sy(44),
-                  icon: Icon(Icons.arrow_back_rounded, color: _ink),
-                ),
+                if (!widget.initialSetup)
+                  IconButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    iconSize: sy(44),
+                    icon: Icon(Icons.arrow_back_rounded, color: _ink),
+                  ),
                 SizedBox(width: sx(24)),
                 Text(
-                  l10n.settings,
+                  widget.initialSetup
+                      ? 'Choose language and Wi-Fi'
+                      : l10n.settings,
                   style: TextStyle(
                     color: _ink,
                     fontSize: sy(72),
@@ -545,18 +640,92 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SizedBox(height: sy(24)),
             _languagePicker(sx, sy),
             SizedBox(height: sy(40)),
-            _sectionTitle(l10n.timeFormat, sy),
-            SizedBox(height: sy(20)),
-            _clockFormatPicker(sx, sy, l10n),
-            SizedBox(height: sy(20)),
-            _timeZoneRow(sx, sy, l10n),
-            SizedBox(height: sy(40)),
+            if (!widget.initialSetup) ...[
+              _sectionTitle(l10n.timeFormat, sy),
+              SizedBox(height: sy(20)),
+              _clockFormatPicker(sx, sy, l10n),
+              SizedBox(height: sy(20)),
+              _timeZoneRow(sx, sy, l10n),
+              SizedBox(height: sy(40)),
+              _sectionTitle('Remote', sy),
+              SizedBox(height: sy(28)),
+              _remoteRow(sx, sy),
+              SizedBox(height: sy(28)),
+            ],
             _sectionTitle(l10n.network, sy),
-            SizedBox(height: sy(28)),
+            SizedBox(height: sy(20)),
             Expanded(child: _networkBody(sx, sy)),
+            if (widget.initialSetup)
+              Align(
+                alignment: Alignment.centerRight,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    OutlinedButton(
+                      onPressed: () {
+                        OnboardingState.markRemoteSetupSkipped();
+                        widget.onSetupComplete?.call();
+                      },
+                      child: const Text('Skip remote setup'),
+                    ),
+                    SizedBox(width: sx(16)),
+                    FilledButton(
+                      onPressed: widget.onSetupComplete,
+                      child: const Text('Continue to remote setup'),
+                    ),
+                  ],
+                ),
+              ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _remoteRow(double Function(double) sx, double Function(double) sy) {
+    final connected = _remoteStatus?.connected == true;
+    return Row(
+      children: [
+        Icon(
+          Icons.bluetooth_rounded,
+          color: connected ? const Color(0xFF2E9E5B) : Colors.redAccent,
+          size: sy(34),
+        ),
+        SizedBox(width: sx(16)),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Remote',
+                style: TextStyle(
+                  color: _ink,
+                  fontSize: sy(30),
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              Text(
+                connected ? 'Paired and connected' : 'Remote unavailable',
+                style: TextStyle(
+                  color: _ink.withValues(alpha: 0.6),
+                  fontSize: sy(20),
+                ),
+              ),
+            ],
+          ),
+        ),
+        FilledButton(
+          style: FilledButton.styleFrom(
+            backgroundColor: _ink,
+            padding: EdgeInsets.symmetric(horizontal: sx(24), vertical: sy(14)),
+          ),
+          onPressed: _replaceRemote,
+          child: Text(
+            'Replace remote',
+            style: TextStyle(fontSize: sy(20), fontWeight: FontWeight.w700),
+          ),
+        ),
+      ],
     );
   }
 
@@ -697,11 +866,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final tz = Session.timeZone.value;
     return Row(
       children: [
-        Icon(Icons.public_rounded, size: sy(36), color: _ink.withValues(alpha: 0.55)),
+        Icon(
+          Icons.public_rounded,
+          size: sy(36),
+          color: _ink.withValues(alpha: 0.55),
+        ),
         SizedBox(width: sx(20)),
         Text(
           tz.isEmpty ? '—' : tz,
-          style: TextStyle(color: _ink, fontSize: sy(26), fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: _ink,
+            fontSize: sy(26),
+            fontWeight: FontWeight.w600,
+          ),
         ),
         const Spacer(),
         FilledButton(

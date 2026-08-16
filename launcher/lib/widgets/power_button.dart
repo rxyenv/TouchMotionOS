@@ -6,8 +6,8 @@ import '../l10n/app_localizations.dart';
 
 /// Power control for the kiosk. Opens a centered dialog instead of a
 /// [PopupMenuButton]: the button sits in the top-right corner, where a
-/// popup menu gets clipped against the screen edge, and a dialog gives
-/// large touch targets suited to the device.
+/// popup menu gets clipped against the screen edge, and a dialog keeps the
+/// actions clear and keyboard-accessible.
 class PowerButton extends StatelessWidget {
   const PowerButton({super.key, this.size = 44});
 

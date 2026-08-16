@@ -30,4 +30,31 @@ class OnboardingState {
       // Non-fatal: onboarding will show again next boot.
     }
   }
+
+  static File get _initialSetupMarker =>
+      File('${_marker.parent.path}/initial_setup_done');
+  static bool get initialSetupDone => _initialSetupMarker.existsSync();
+  static void markInitialSetupDone() => _initialSetupMarker.createSync(recursive: true);
+
+  static File get _remoteTutorialMarker =>
+      File('${_marker.parent.path}/remote_tutorial_done');
+  static bool get remoteTutorialDone {
+    try {
+      return _remoteTutorialMarker.existsSync();
+    } on FileSystemException {
+      return false;
+    }
+  }
+
+  static void markRemoteTutorialDone() {
+    try {
+      _remoteTutorialMarker.createSync(recursive: true);
+    } on FileSystemException {}
+  }
+
+  static File get _remoteSkippedMarker =>
+      File('${_marker.parent.path}/remote_setup_skipped');
+  static bool get remoteSetupSkipped => _remoteSkippedMarker.existsSync();
+  static void markRemoteSetupSkipped() =>
+      _remoteSkippedMarker.createSync(recursive: true);
 }

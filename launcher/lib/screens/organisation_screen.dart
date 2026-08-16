@@ -4,7 +4,7 @@ import '../l10n/app_localizations.dart';
 import '../session.dart';
 import '../widgets/focusable_tap.dart';
 import '../widgets/power_button.dart';
-import 'language_screen.dart';
+import 'patient_profile_screen.dart';
 
 /// Organisation login: pick a patient from the dropdown, then verify with a
 /// 4-digit OTP. Template only — patient list and OTP check are placeholders
@@ -59,7 +59,7 @@ class _OrganisationScreenState extends State<OrganisationScreen> {
       setState(() => _otp.clear());
       Navigator.of(
         context,
-      ).push(MaterialPageRoute(builder: (_) => const LanguageScreen()));
+      ).push(MaterialPageRoute(builder: (_) => const PatientProfileScreen()));
     } else {
       setState(() {
         _otp.clear();

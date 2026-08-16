@@ -11,6 +11,7 @@ let
       gptfdisk
       dosfstools
       e2fsprogs
+      coreutils
       util-linux
       nixos-install-tools
     ];

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../onboarding_state.dart';
+import '../widgets/focusable_tap.dart';
 import 'organisation_screen.dart';
 
 class Slide16Screen extends StatelessWidget {
@@ -38,11 +39,13 @@ class Slide16Screen extends StatelessWidget {
           Positioned(
             top: sy(707),
             left: sx(843),
-            child: GestureDetector(
+            child: FocusableTap(
+              autofocus: true,
+              borderRadius: BorderRadius.circular(sy(12)),
               onTap: () {
                 OnboardingState.markDone();
                 // Same entry point the app boots into once onboarding is
-                // done: organisation login, then language, profile, home.
+                // done: organisation login, profile, then home.
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (_) => const OrganisationScreen()),
                 );
