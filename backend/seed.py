@@ -12,16 +12,6 @@ GAMES = [
         "size_bytes": 104857600,
         "binary": "SkyHopper.x86_64",
     },
-    {
-        "id": "tomoro-yogaflow",
-        "name": "YogaFlow",
-        "description": "Full-body pose-guided yoga experience.",
-        "cover_url": "",
-        "download_url": "https://cdn.example.com/tomoro-yogaflow-v1.0.tar.gz",
-        "version": "1.0.0",
-        "size_bytes": 204800000,
-        "binary": "YogaFlow.x86_64",
-    },
 ]
 
 

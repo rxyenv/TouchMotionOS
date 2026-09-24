@@ -65,9 +65,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get taglineCatNap => 'Keep the cat awake with your best moves';
 
   @override
-  String get taglineYogaFlow => 'Flow through poses — move at your own pace';
-
-  @override
   String get whoIsPlaying => 'Who is playing today?';
 
   @override
@@ -144,9 +141,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get presCatNap => '5 minutes — balance and reach';
-
-  @override
-  String get presYogaFlow => '10 minutes — yoga flow poses';
 
   @override
   String get sugg1 => 'Great streak! Two days in a row.';

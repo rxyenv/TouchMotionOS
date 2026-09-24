@@ -29,8 +29,8 @@ class _StoreScreenState extends State<StoreScreen> {
 
   // id → install progress pct (null = not installing)
   final Map<String, int?> _installing = {};
-  // ids that daemon confirmed installed this session
-  final Set<String> _installed = {};
+  // Installed versions reported by the daemon's persistent manifest.
+  final Map<String, String> _installedVersions = {};
 
   StreamSubscription<Map<String, dynamic>>? _sub;
 
@@ -38,6 +38,7 @@ class _StoreScreenState extends State<StoreScreen> {
   void initState() {
     super.initState();
     _sub = StoreClient.instance.events.listen(_onEvent);
+    StoreClient.instance.send({'cmd': 'list'});
     _fetchCatalog();
   }
 
@@ -87,19 +88,31 @@ class _StoreScreenState extends State<StoreScreen> {
     final type = ev['type'] as String?;
     final id = ev['id'] as String?;
     setState(() {
-      if (type == 'progress' && id != null) {
+      if (type == 'list') {
+        _installedVersions
+          ..clear()
+          ..addEntries((ev['games'] as List? ?? []).map((game) {
+            final entry = Map<String, dynamic>.from(game as Map);
+            return MapEntry(entry['id'] as String, entry['version'] as String);
+          }));
+      } else if (type == 'progress' && id != null) {
         _installing[id] = ev['pct'] as int? ?? 0;
       } else if (type == 'installed' && id != null) {
         _installing.remove(id);
-        _installed.add(id);
       } else if (type == 'error' && id != null) {
         _installing.remove(id);
       }
     });
+    if (type == 'installed') StoreClient.instance.send({'cmd': 'list'});
+    if (type == 'error' && id != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Could not install $id: ${ev['msg'] ?? 'unknown error'}')),
+      );
+    }
   }
 
   void _install(String id) {
-    if (_installing.containsKey(id) || _installed.contains(id)) return;
+    if (_installing.containsKey(id)) return;
     setState(() => _installing[id] = 0);
     StoreClient.instance.send({'cmd': 'install', 'id': id});
   }
@@ -194,7 +207,8 @@ class _StoreScreenState extends State<StoreScreen> {
     final sizeMb = ((game['size_bytes'] as int? ?? 0) / 1024 / 1024).round();
     final pct = _installing[id];
     final isInstalling = pct != null;
-    final isInstalled = _installed.contains(id);
+    final isInstalled = _installedVersions[id] == game['version'];
+    final isUpdate = _installedVersions.containsKey(id) && !isInstalled;
 
     return SizedBox(
       width: sx(520),
@@ -289,7 +303,7 @@ class _StoreScreenState extends State<StoreScreen> {
                           ],
                           SizedBox(height: sy(6)),
                           Text(
-                            '${sizeMb} MB',
+                            '${sizeMb} MB · v${game['version']}',
                             style: TextStyle(
                               color: _ink.withValues(alpha: 0.35),
                               fontSize: sy(15),
@@ -299,7 +313,7 @@ class _StoreScreenState extends State<StoreScreen> {
                       ),
                     ),
                     SizedBox(width: sx(16)),
-                    _actionButton(id, isInstalling, isInstalled, pct, sy),
+                    _actionButton(id, isInstalling, isInstalled, isUpdate, pct, sy),
                   ],
                 ),
               ),
@@ -314,6 +328,7 @@ class _StoreScreenState extends State<StoreScreen> {
     String id,
     bool isInstalling,
     bool isInstalled,
+    bool isUpdate,
     int? pct,
     double Function(double) sy,
   ) {
@@ -380,7 +395,7 @@ class _StoreScreenState extends State<StoreScreen> {
             borderRadius: BorderRadius.circular(sy(12)),
           ),
           child: Text(
-            'Get',
+            isUpdate ? 'Update' : 'Get',
             style: TextStyle(
               color: Colors.white,
               fontSize: sy(17),

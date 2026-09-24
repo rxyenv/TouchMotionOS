@@ -214,12 +214,6 @@ abstract class AppLocalizations {
   /// **'Keep the cat awake with your best moves'**
   String get taglineCatNap;
 
-  /// No description provided for @taglineYogaFlow.
-  ///
-  /// In en, this message translates to:
-  /// **'Flow through poses — move at your own pace'**
-  String get taglineYogaFlow;
-
   /// No description provided for @whoIsPlaying.
   ///
   /// In en, this message translates to:
@@ -357,12 +351,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'5 minutes — balance and reach'**
   String get presCatNap;
-
-  /// No description provided for @presYogaFlow.
-  ///
-  /// In en, this message translates to:
-  /// **'10 minutes — yoga flow poses'**
-  String get presYogaFlow;
 
   /// No description provided for @sugg1.
   ///

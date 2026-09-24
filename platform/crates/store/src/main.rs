@@ -9,7 +9,6 @@
 use std::{
     collections::HashMap,
     path::{Path, PathBuf},
-    sync::Arc,
 };
 
 use flate2::read::GzDecoder;
@@ -19,7 +18,7 @@ use tokio::{
     fs,
     io::{AsyncBufReadExt, AsyncWriteExt, BufReader},
     net::{UnixListener, UnixStream},
-    sync::{broadcast, Mutex},
+    sync::broadcast,
 };
 
 // ── config ───────────────────────────────────────────────────────────────────
@@ -84,8 +83,9 @@ enum Event {
         id: String,
         msg: String,
     },
-    Launched {
+    LaunchReady {
         id: String,
+        path: String,
     },
 }
 
@@ -129,7 +129,8 @@ async fn install_game(
     client_id: Option<String>,
 ) {
     let dir = games_dir();
-    let part_path = dir.join(format!("{}.tar.gz.part", id));
+    let is_zip = meta.download_url.split('?').next().unwrap_or_default().to_ascii_lowercase().ends_with(".zip");
+    let part_path = dir.join(format!("{}.part", id));
     let game_dir = dir.join(&id);
 
     if let Err(e) = fs::create_dir_all(&dir).await {
@@ -139,7 +140,7 @@ async fn install_game(
 
     // download
     let client = reqwest::Client::new();
-    let resp = match client.get(&meta.download_url).send().await {
+    let resp = match client.get(&meta.download_url).send().await.and_then(reqwest::Response::error_for_status) {
         Ok(r) => r,
         Err(e) => {
             let _ = tx.send((client_id, Event::Error { id, msg: format!("download failed: {e}") }));
@@ -147,7 +148,7 @@ async fn install_game(
         }
     };
 
-    let total = meta.size_bytes.max(1);
+    let total = if meta.size_bytes > 0 { meta.size_bytes } else { resp.content_length().unwrap_or(1) };
     let mut downloaded: u64 = 0;
     let mut last_pct: u8 = 255;
 
@@ -194,20 +195,57 @@ async fn install_game(
     // extract
     let part_path_clone = part_path.clone();
     let game_dir_clone = game_dir.clone();
-    let id_clone = id.clone();
+    let binary_name = meta.binary.clone();
     let extract_result = tokio::task::spawn_blocking(move || {
-        let file = std::fs::File::open(&part_path_clone)?;
-        let gz = GzDecoder::new(file);
-        let mut archive = tar::Archive::new(gz);
         std::fs::create_dir_all(&game_dir_clone)?;
-        archive.unpack(&game_dir_clone)?;
+        if is_zip {
+            let listing = std::process::Command::new("unzip")
+                .arg("-Z1")
+                .arg(&part_path_clone)
+                .output()?;
+            if !listing.status.success() {
+                return Err(std::io::Error::other("invalid zip archive"));
+            }
+            for name in String::from_utf8_lossy(&listing.stdout).lines() {
+                let normalized = name.replace('\\', "/");
+                if normalized.starts_with('/')
+                    || normalized.split('/').any(|part| part == "..")
+                    || normalized.split('/').next().unwrap_or_default().contains(':')
+                {
+                    return Err(std::io::Error::other("unsafe path in zip archive"));
+                }
+            }
+            let status = std::process::Command::new("unzip")
+                .arg("-q")
+                .arg("-o")
+                .arg(&part_path_clone)
+                .arg("-d")
+                .arg(&game_dir_clone)
+                .status()?;
+            if !status.success() {
+                return Err(std::io::Error::other(format!("unzip exited with {status}")));
+            }
+        } else {
+            let file = std::fs::File::open(&part_path_clone)?;
+            let gz = GzDecoder::new(file);
+            let mut archive = tar::Archive::new(gz);
+            archive.unpack(&game_dir_clone)?;
+        }
+        let binary = find_binary(&game_dir_clone, &binary_name)?;
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::PermissionsExt;
+            let mut permissions = std::fs::metadata(&binary)?.permissions();
+            permissions.set_mode(0o755);
+            std::fs::set_permissions(&binary, permissions)?;
+        }
         std::fs::remove_file(&part_path_clone)?;
-        Ok::<_, std::io::Error>(())
+        Ok::<_, std::io::Error>(binary.strip_prefix(&game_dir_clone).unwrap().to_string_lossy().into_owned())
     })
     .await;
 
-    match extract_result {
-        Ok(Ok(())) => {}
+    let installed_binary = match extract_result {
+        Ok(Ok(binary)) => binary,
         Ok(Err(e)) => {
             let _ = tx.send((client_id, Event::Error { id, msg: format!("extract failed: {e}") }));
             return;
@@ -216,7 +254,7 @@ async fn install_game(
             let _ = tx.send((client_id, Event::Error { id, msg: format!("task panic: {e}") }));
             return;
         }
-    }
+    };
 
     // update manifest
     let mut manifest = read_manifest().await;
@@ -224,7 +262,7 @@ async fn install_game(
         id.clone(),
         ManifestEntry {
             version: meta.version,
-            binary: meta.binary,
+            binary: installed_binary,
             installed_at: chrono_now(),
         },
     );
@@ -234,6 +272,23 @@ async fn install_game(
     }
 
     let _ = tx.send((client_id, Event::Installed { id }));
+}
+
+fn find_binary(root: &Path, configured_name: &str) -> std::io::Result<PathBuf> {
+    let name = Path::new(configured_name).file_name().ok_or_else(|| std::io::Error::other("missing executable name"))?;
+    let mut dirs = vec![root.to_path_buf()];
+    while let Some(dir) = dirs.pop() {
+        for entry in std::fs::read_dir(dir)? {
+            let entry = entry?;
+            let kind = entry.file_type()?;
+            if kind.is_dir() {
+                dirs.push(entry.path());
+            } else if kind.is_file() && entry.file_name() == name {
+                return Ok(entry.path());
+            }
+        }
+    }
+    Err(std::io::Error::new(std::io::ErrorKind::NotFound, format!("executable {configured_name} not found in archive")))
 }
 
 fn chrono_now() -> String {
@@ -277,15 +332,15 @@ fn days_to_ymd(mut days: u64) -> (u64, u64, u64) {
 
 // ── launch ────────────────────────────────────────────────────────────────────
 
-async fn launch_game(id: &str) -> Result<(), String> {
+async fn launch_path(id: &str) -> Result<String, String> {
     let manifest = read_manifest().await;
     let entry = manifest.get(id).ok_or_else(|| format!("game '{id}' not installed"))?;
-    let binary = games_dir().join(id).join(&entry.binary);
-    tokio::process::Command::new("steam-run")
-        .arg(&binary)
-        .spawn()
-        .map_err(|e| format!("spawn failed: {e}"))?;
-    Ok(())
+    let root = games_dir().join(id).canonicalize().map_err(|e| e.to_string())?;
+    let binary = root.join(&entry.binary).canonicalize().map_err(|e| e.to_string())?;
+    if !binary.starts_with(root) || !binary.is_file() {
+        return Err("invalid installed executable".to_string());
+    }
+    Ok(binary.to_string_lossy().into_owned())
 }
 
 // ── connection handler ────────────────────────────────────────────────────────
@@ -330,6 +385,13 @@ async fn handle_client(
                     match client_cmd.get(&url).send().await {
                         Ok(resp) => match resp.json::<GameMeta>().await {
                             Ok(meta) => {
+                                if meta.id != id {
+                                    let _ = tx_cmd.send((
+                                        Some(cid_cmd.clone()),
+                                        Event::Error { id: id.to_string(), msg: "catalog returned a different game".to_string() },
+                                    ));
+                                    continue;
+                                }
                                 let id = id.to_string();
                                 let tx2 = tx_cmd.clone();
                                 let cid2 = cid_cmd.clone();
@@ -357,9 +419,9 @@ async fn handle_client(
                 }
                 "launch" => {
                     let Some(id) = val.get("id").and_then(Value::as_str) else { continue };
-                    match launch_game(id).await {
-                        Ok(()) => {
-                            let _ = tx_cmd.send((Some(cid_cmd.clone()), Event::Launched { id: id.to_string() }));
+                    match launch_path(id).await {
+                        Ok(path) => {
+                            let _ = tx_cmd.send((Some(cid_cmd.clone()), Event::LaunchReady { id: id.to_string(), path }));
                         }
                         Err(msg) => {
                             let _ = tx_cmd.send((Some(cid_cmd.clone()), Event::Error { id: id.to_string(), msg }));

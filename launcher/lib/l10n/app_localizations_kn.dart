@@ -65,9 +65,6 @@ class AppLocalizationsKn extends AppLocalizations {
   String get taglineCatNap => 'ನಿಮ್ಮ ಚಲನೆಗಳಿಂದ ಬೆಕ್ಕನ್ನು ಎಚ್ಚರವಾಗಿಡಿ';
 
   @override
-  String get taglineYogaFlow => 'ಓಡಿ, ಜಿಗಿದು, ನಾಡುಗಳಲ್ಲಿ ರೇಸ್ ಮಾಡಿ';
-
-  @override
   String get whoIsPlaying => 'ಇಂದು ಯಾರು ಆಡುತ್ತಿದ್ದಾರೆ?';
 
   @override
@@ -143,9 +140,6 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get presCatNap => '5 ನಿಮಿಷ — ಸಮತೋಲನ ಮತ್ತು ತಲುಪುವಿಕೆ';
-
-  @override
-  String get presYogaFlow => '10 ನಿಮಿಷ — ನಿಂತಲ್ಲೇ ಹೆಜ್ಜೆ ಹಾಕುವುದು';
 
   @override
   String get sugg1 => 'ಅದ್ಭುತ! ಸತತ ಎರಡು ದಿನ.';

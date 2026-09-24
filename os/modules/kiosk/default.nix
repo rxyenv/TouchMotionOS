@@ -3,7 +3,6 @@
 let
   launcher = pkgs.callPackage ../../../launcher { };
   platform = pkgs.callPackage ../../../platform { };
-  yogaflow = pkgs.callPackage ../../../games/yogaflow { };
 in
 {
   # Allow the kiosk user to set the system timezone without a password.
@@ -18,7 +17,7 @@ in
   # iw: tomoro-net shells out to it for the connected SSID.
   # wpa_supplicant: provides wpa_cli, which tomoro-net drives for
   # wifi scan/connect from the settings screen.
-  environment.systemPackages = [ launcher platform yogaflow pkgs.iw pkgs.wpa_supplicant pkgs.steam-run ];
+  environment.systemPackages = [ launcher platform pkgs.iw pkgs.wpa_supplicant pkgs.steam-run ];
 
   # Wifi managed by wpa_supplicant; userControlled exposes the control
   # socket to the "users" group so the launcher (running as tomoro) can

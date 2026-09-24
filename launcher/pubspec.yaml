@@ -71,7 +71,6 @@ flutter:
     - assets/slide14/
     - assets/slide15/
     - assets/slide16/
-    - assets/yogaflow/
 
   # Noto variable fonts: Latin base plus one family per supported Indic
   # script. Referenced from ThemeData as fontFamily + fontFamilyFallback.

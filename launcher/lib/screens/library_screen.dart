@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 
@@ -36,17 +37,37 @@ class _LibraryScreenState extends State<LibraryScreen> {
   void _onEvent(Map<String, dynamic> ev) {
     final type = ev['type'] as String?;
     if (!mounted) return;
+    String? launchPath;
     setState(() {
       if (type == 'list') {
         _games = List<Map<String, dynamic>>.from(
           (ev['games'] as List? ?? []).map((g) => Map<String, dynamic>.from(g as Map)),
         );
-      } else if (type == 'launched') {
+      } else if (type == 'launch_ready') {
         _launching.remove(ev['id']);
+        launchPath = ev['path'] as String?;
       } else if (type == 'error') {
         _launching.remove(ev['id']);
       }
     });
+    if (launchPath != null) unawaited(_startGame(launchPath!));
+  }
+
+  Future<void> _startGame(String path) async {
+    try {
+      await Process.start(
+        'steam-run',
+        [path],
+        workingDirectory: File(path).parent.path,
+        mode: ProcessStartMode.detached,
+      );
+    } on ProcessException catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Could not start game: $error')),
+        );
+      }
+    }
   }
 
   void _launch(String id) {

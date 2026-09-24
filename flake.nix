@@ -26,7 +26,6 @@
         packages = {
           launcher = pkgs.callPackage ./launcher { };
           platform = pkgs.callPackage ./platform { };
-          yogaflow = pkgs.callPackage ./games/yogaflow { };
         };
       }
     ) // {

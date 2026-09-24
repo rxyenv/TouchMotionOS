@@ -4,7 +4,7 @@
 
 TouchMotionOS needs an app store so users can browse and download Unity games from within the launcher. B2B product; devices have credentials but store catalog is universal. MVP scope: browse catalog → download game → launch it. Backend is a temporary vibe-coded implementation to be handed off later.
 
-Current game launch: `Process.start('steam-run', [game.id])` in `home_screen.dart:_launchGame()`. Games are installed as Nix packages. Downloaded games need a different install path since we can't imperatively install Nix packages.
+Current game launch: the Store daemon validates an installed game path, then the Flutter library starts it with `steam-run` in the kiosk session. Downloaded games live under `/var/lib/tomoro/games/`.
 
 ---
 
@@ -12,7 +12,7 @@ Current game launch: `Process.start('steam-run', [game.id])` in `home_screen.dar
 
 ```
 [Flutter Launcher]
-  Store Screen  ──HTTP──▶  [Backend API]  ──redirect──▶  [CDN]
+  Store Screen  ──HTTP──▶  [Local catalog API]  ──version.json──▶  [CDN]
   Library Screen ──socket──▶ [Rust Daemon: tomoro-store]
                               │  downloads + extracts
                               ▼
@@ -96,21 +96,22 @@ Follows same pattern as `platform/crates/network/`.
 {"type": "progress", "id": "tomoro-breakout", "pct": 42, "bytes_done": 85983232, "bytes_total": 204800000}
 {"type": "installed", "id": "tomoro-breakout"}
 {"type": "error", "id": "tomoro-breakout", "msg": "download failed: 404"}
-{"type": "launched", "id": "tomoro-breakout"}
+{"type": "launch_ready", "id": "tomoro-breakout", "path": "/var/lib/tomoro/games/tomoro-breakout/Breakout.x86_64"}
 ```
 
 ### Download + Install flow
 
 1. Fetch game metadata from backend (`GET /catalog/{id}`)
-2. Stream download to `/var/lib/tomoro/games/{id}.tar.gz.part`
+2. Stream download to `/var/lib/tomoro/games/{id}.part`
 3. Send progress events at ~1s intervals
-4. On complete: extract to `/var/lib/tomoro/games/{id}/`
+4. On complete: extract the ZIP or tar.gz to `/var/lib/tomoro/games/{id}/`
 5. Update `/var/lib/tomoro/manifest.json`
 6. Send `{"type": "installed", ...}`
 
 ### Launch flow
 
-Read manifest → `Command::new("steam-run").arg("/var/lib/tomoro/games/{id}/{binary}").spawn()`
+The daemon validates the installed executable and returns its path. The
+launcher starts it with `steam-run` in the kiosk display session.
 
 ### Manifest format
 
@@ -155,7 +156,7 @@ Home screen gets bottom nav or tab bar: **Library | Store**.
 
 ### Game launch
 
-Library screen uses `store_client.dart` → `{"cmd": "launch", "id": "..."}` (daemon handles steam-run). Removes direct `Process.start` from Flutter for downloaded games. Nix-installed games (yogaflow, skyhopper) can still use existing mechanism or route through daemon too.
+Library screen sends `{"cmd": "launch", "id": "..."}` through `store_client.dart`, then starts the returned path with `steam-run` in the launcher session.
 
 ---
 
@@ -210,6 +211,6 @@ Import in `os/modules/kiosk/default.nix`.
 
 1. `cargo build` in `platform/` — store daemon compiles
 2. `echo '{"cmd":"list"}' | socat - UNIX-CONNECT:/tmp/store.sock` — returns empty list
-3. Seed backend with one game pointing to real tar.gz; send install command; verify extraction at `/var/lib/tomoro/games/{id}/`
+3. Open the Store with a public version.json configured in the catalog; install its ZIP and verify extraction at `/var/lib/tomoro/games/{id}/`
 4. Flutter store screen shows catalog
 5. End-to-end: store screen → install → progress bar → library shows game → launch

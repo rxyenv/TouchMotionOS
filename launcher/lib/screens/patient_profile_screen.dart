@@ -34,7 +34,6 @@ class PatientProfileScreen extends StatelessWidget {
   static List<(String, String)> _prescription(AppLocalizations l10n) => [
     ('Sky Hopper', l10n.presSkyHopper),
     ('Cat Nap Chase', l10n.presCatNap),
-    ('YogaFlow', l10n.presYogaFlow),
   ];
 
   static List<String> _suggestions(AppLocalizations l10n) => [
